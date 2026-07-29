@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Heating Solutions - Education21</title>
+    <meta name="description" content="Bitcoin heating hardware specified by thermal load — for educational institutions, public sites, small businesses, homes, and district-scale systems.">
+    <link rel="canonical" href="https://education21.io/bitcoin-heating-solutions.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://education21.io/bitcoin-heating-solutions.html">
+    <meta property="og:title" content="Bitcoin Heating Solutions - Education21">
+    <meta property="og:description" content="Every watt of electricity becomes heat. The only question is whether you use it.">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#8383;</text></svg>">
+
+    <style>
+        :root {
+            /* Shared with the Education21 homepage */
+            --orange: #F7931A;
+            --dark: #0A0A0A;
+            --light: #F5F5F5;
+            --gray: #9A9A9A;
+            --accent: #1E1E1E;
+
+            /* Thermal ramp — this page's organizing device.
+               Cool (low output) through to white-hot (megawatt scale). */
+            --t1: #7A2E00;
+            --t2: #B84A00;
+            --t3: #F7931A;
+            --t4: #FFC145;
+            --t5: #FFF0CC;
+
+            --line: rgba(247, 147, 26, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: var(--orange);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            z-index: 2000;
+            font-weight: 700;
+        }
+
+        .skip-link:focus { left: 0; }
+
+        a:focus-visible,
+        button:focus-visible,
+        select:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(247, 147, 26, 0.1);
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--orange);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        nav { display: flex; gap: 2rem; align-items: center; }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        nav a:hover { color: var(--orange); }
+
+        .cta-button {
+            background: var(--orange);
+            color: var(--dark);
+            padding: 0.7rem 1.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--light);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Layout ---------- */
+        .wrap { max-width: 1280px; margin: 0 auto; }
+
+        .band { padding: 6rem 4rem; }
+
+        .band + .band { border-top: 1px solid rgba(247, 147, 26, 0.12); }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.6rem;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.35rem;
+            line-height: 1.3;
+        }
+
+        .lede {
+            color: var(--gray);
+            font-size: 1.05rem;
+            max-width: 62ch;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 12rem 4rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(247, 147, 26, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(247, 147, 26, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero-inner { position: relative; z-index: 2; }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4.4rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 24ch;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(100deg, var(--t2), var(--t3) 45%, var(--t4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero .lede { font-size: 1.15rem; margin-bottom: 3rem; }
+
+        /* The physics, stated plainly — the page's thesis */
+        .identity {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 2rem;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--orange);
+            border-radius: 6px;
+            background: var(--accent);
+            max-width: 900px;
+        }
+
+        .identity-term {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .identity-eq { color: var(--orange); font-size: 1.4rem; }
+
+        .identity-note {
+            flex: 1 1 260px;
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.7;
+            min-width: 240px;
+        }
+
+        /* ---------- Signature: thermal scale ---------- */
+        .scale-shell { margin-top: 3.5rem; }
+
+        .scale-axis {
+            position: relative;
+            height: 14px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--t1), var(--t2) 25%, var(--t3) 55%, var(--t4) 80%, var(--t5));
+            margin-bottom: 0.6rem;
+        }
+
+        .scale-ticks {
+            position: relative;
+            height: 1.6rem;
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .scale-ticks span {
+            position: absolute;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .scale-rows { display: grid; gap: 0.6rem; }
+
+        .scale-row {
+            position: relative;
+            height: 3rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .scale-seg {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: filter 0.25s ease, transform 0.25s ease;
+        }
+
+        .scale-seg:hover,
+        .scale-seg:focus-visible {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+
+        .scale-seg span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .scale-caption {
+            margin-top: 1.25rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ---------- Category sections ---------- */
+        .cat-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 1.5rem;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .cat-range {
+            font-size: 0.85rem;
+            color: var(--orange);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.35rem 1rem;
+            white-space: nowrap;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--accent);
+            border: 1px solid rgba(247, 147, 26, 0.15);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--orange);
+        }
+
+        /* Thermal signature bar — width and colour encode output on the same ramp as the axis */
+        .card-thermal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+        }
+
+        .card-vendor {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-vendor.own { color: var(--orange); }
+
+        .card h3 { margin-bottom: 0.75rem; }
+
+        .card-desc {
+            color: var(--gray);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .specs {
+            display: grid;
+            gap: 0.4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding-top: 1.25rem;
+            font-size: 0.8rem;
+        }
+
+        .spec {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .spec dt { color: var(--gray); }
+
+        .spec dd {
+            font-weight: 500;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .spec dd.hot { color: var(--orange); }
+
+        /* ---------- Calculator ---------- */
+        .calc {
+            display: grid;
+            grid-template-columns: minmax(280px, 360px) 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+
+        .calc-inputs {
+            background: var(--accent);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .field { margin-bottom: 1.25rem; }
+
+        .field:last-child { margin-bottom: 0; }
+
+        .field label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.4rem;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            background: var(--dark);
+            border: 1px solid rgba(247, 147, 26, 0.25);
+            border-radius: 4px;
+            color: var(--light);
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 0.7rem 0.8rem;
+        }
+
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .assumption {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed rgba(247, 147, 26, 0.25);
+        }
+
+        .assumption p {
+            font-size: 0.72rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-top: 0.75rem;
+        }
+
+        .assumption a { color: var(--orange); }
+
+        .readout { display: grid; gap: 1.5rem; }
+
+        .readout-primary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .metric {
+            background: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .metric-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--orange);
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+            word-break: break-word;
+        }
+
+        .metric-label {
+            font-size: 0.72rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        table.compare {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        table.compare caption {
+            text-align: left;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            padding-bottom: 0.9rem;
+        }
+
+        table.compare th,
+        table.compare td {
+            text-align: right;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-variant-numeric: tabular-nums;
+        }
+
+        table.compare th:first-child,
+        table.compare td:first-child { text-align: left; }
+
+        table.compare thead th {
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+
+        table.compare tbody th { font-weight: 500; }
+
+        table.compare tr.winner td,
+        table.compare tr.winner th { color: var(--orange); }
+
+        /* ---------- Honest economics ---------- */
+        .reality {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .reality-item {
+            border-left: 3px solid var(--t2);
+            padding: 0.5rem 0 0.5rem 1.5rem;
+        }
+
+        .reality-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .reality-item p {
+            color: var(--gray);
+            font-size: 0.87rem;
+            line-height: 1.75;
+        }
+
+        /* ---------- CTA + footer ---------- */
+        .cta-band { text-align: center; padding: 8rem 4rem; }
+
+        .cta-band h2 { margin-bottom: 1.25rem; }
+
+        .cta-band .lede { margin: 0 auto 2.5rem; }
+
+        .buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+
+        .primary-cta,
+        .secondary-cta {
+            padding: 1.1rem 2.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .primary-cta { background: var(--orange); color: var(--dark); }
+        .primary-cta:hover { background: var(--light); transform: translateY(-3px); }
+
+        .secondary-cta { border: 2px solid var(--orange); color: var(--light); }
+        .secondary-cta:hover { background: var(--orange); color: var(--dark); transform: translateY(-3px); }
+
+        footer {
+            padding: 3.5rem 4rem;
+            border-top: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--orange); }
+
+        .fineprint {
+            color: var(--gray);
+            font-size: 0.75rem;
+            max-width: 70ch;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1020px) {
+            .calc { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            header { padding: 1rem 1.5rem; }
+            nav { gap: 1rem; }
+            nav a { font-size: 0.75rem; }
+            .cta-button { padding: 0.5rem 0.9rem; }
+            .logo { font-size: 1.3rem; }
+            .hero { padding: 9rem 1.5rem 4rem; }
+            .band { padding: 4rem 1.5rem; }
+            .cta-band { padding: 5rem 1.5rem; }
+            footer { padding: 3rem 1.5rem; }
+            h2 { font-size: 2rem; }
+            .scale-seg { font-size: 0.68rem; padding: 0 0.6rem; }
+        }
+
+        @media (max-width: 560px) {
+            .field-row { grid-template-columns: 1fr; }
+            .identity { padding: 1.5rem; }
+            /* Segment labels get unreadably narrow; the range chips carry the same info. */
+            .scale-seg span { display: none; }
+            .scale-row { height: 2.25rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <a href="index.html" class="logo">Education21</a>
+        <nav>
+            <a href="index.html#services">Services</a>
+            <a href="#institutions">Institutions</a>
+            <a href="#business">Business</a>
+            <a href="#sizing">Sizing tool</a>
+            <a href="mailto:hello@education21.io" class="cta-button">Request a study</a>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero">
+            <div class="wrap hero-inner">
+                <p class="eyebrow">Heat reuse &middot; Proof of work</p>
+                <h1>Buy the heat you already need. <em>Get the hashrate free.</em></h1>
+                <p class="lede">A Bitcoin heater is not a gadget with a heater attached. It is a heater whose resistive element has been replaced by a computer, and the heat arrives either way. We specify, size, and commission these systems for institutions and businesses across the Northeast.</p>
+
+                <div class="identity">
+                    <span class="identity-term">1 watt in</span>
+                    <span class="identity-eq" aria-hidden="true">&rarr;</span>
+                    <span class="identity-term">3.412 BTU/hr out</span>
+                    <span class="identity-eq" aria-hidden="true">+</span>
+                    <span class="identity-term">hashrate</span>
+                    <p class="identity-note">Electric resistance heating converts essentially all input energy to heat. So does an ASIC. Thermodynamically the two are the same appliance — but only one of them pays you for the privilege. Everything on this page follows from that.</p>
+                </div>
+
+                <div class="scale-shell">
+                    <p class="eyebrow">Sorted by thermal output, not by product family</p>
+                    <div class="scale-axis" role="presentation"></div>
+                    <div class="scale-ticks" id="scaleTicks" aria-hidden="true"></div>
+                    <div class="scale-rows" id="scaleRows"></div>
+                    <p class="scale-caption">Logarithmic, 100&nbsp;W to 10&nbsp;MW. Bands overlap because the right answer for a 30&nbsp;kW load depends on the heat medium available, not on who you are. Select a band to jump to it.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="band" id="institutions">
+            <div class="wrap">
+                <div class="cat-head">
+                    <div>
+                        <p class="eyebrow">Category 01</p>
+                        <h2>Educational institutions<br>and public sites</h2>
+                    </div>
+                    <span class="cat-range">10 kW &ndash; 1 MW thermal</span>
+                </div>
+                <p class="lede">Schools, universities, libraries, recreation centres, and municipal buildings share three traits that make them the strongest candidates in the entire market: a large existing electrical service, a year-round hot water demand, and a mandate to teach or demonstrate what they are doing. The heat pays for the equipment; the visibility pays for the programme.</p>
+                <div class="cards" data-category="institutions"></div>
+            </div>
+        </section>
+
+        <section class="band" id="business">
+            <div class="wrap">
+                <div class="cat-head">
+                    <div>
+                        <p class="eyebrow">Category 02</p>
+                        <h2>Small businesses</h2>
+                    </div>
+                    <span class="cat-range">1.5 kW &ndash; 50 kW thermal</span>
+                </div>
+                <p class="lede">If your business already burns money on hot water or process heat every day of the year, that spend is the whole opportunity. Laundromats, breweries, salons, gyms, commercial kitchens, greenhouses, and unheated workshops all have the steady thermal load that makes the arithmetic work. Sporadic loads do not.</p>
+                <div class="cards" data-category="business"></div>
+            </div>
+        </section>
+
+        <section class="band" id="homes">
+            <div class="wrap">
+                <div class="cat-head">
+                    <div>
+                        <p class="eyebrow">Category 03</p>
+                        <h2>Homes and small offices</h2>
+                    </div>
+                    <span class="cat-range">300 W &ndash; 1.5 kW thermal</span>
+                </div>
+                <p class="lede">The retail end of the market: plug-in units that run on an ordinary 120&nbsp;V circuit and need no plumbing, no permit, and no facilities staff. Also the right place to start if you want a working unit in the room before you propose anything larger to a building committee.</p>
+                <div class="cards" data-category="homes"></div>
+            </div>
+        </section>
+
+        <section class="band" id="district">
+            <div class="wrap">
+                <div class="cat-head">
+                    <div>
+                        <p class="eyebrow">Category 04</p>
+                        <h2>Industrial and district scale</h2>
+                    </div>
+                    <span class="cat-range">500 kW &ndash; 10 MW thermal</span>
+                </div>
+                <p class="lede">At megawatt scale the miner stops being an appliance and becomes a boiler. These are the deployments that have already been built and metered in Finland, British Columbia, and Manitoba, which makes them the most useful precedents to cite when a board asks whether anyone has actually done this.</p>
+                <div class="cards" data-category="district"></div>
+            </div>
+        </section>
+
+        <section class="band" id="sizing">
+            <div class="wrap">
+                <p class="eyebrow">Sizing tool</p>
+                <h2>Run the numbers on your own load</h2>
+                <p class="lede">Pick a unit, tell it how hard you will run it, and compare the true cost of that heat against the two alternatives you actually have. Every assumption is an editable field, because every one of them will be out of date eventually.</p>
+
+                <div class="calc">
+                    <div class="calc-inputs">
+                        <div class="field">
+                            <label for="unit">Unit</label>
+                            <select id="unit"></select>
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="qty">Quantity</label>
+                                <input type="number" id="qty" value="1" min="1" step="1">
+                            </div>
+                            <div class="field">
+                                <label for="hours">Hours per day</label>
+                                <input type="number" id="hours" value="24" min="1" max="24" step="1">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="days">Days per year</label>
+                                <input type="number" id="days" value="180" min="1" max="365" step="1">
+                            </div>
+                            <div class="field">
+                                <label for="rate">Electricity ($/kWh)</label>
+                                <input type="number" id="rate" value="0.14" min="0" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="assumption">
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="hashprice">Sats / TH / day</label>
+                                    <input type="number" id="hashprice" value="50" min="0" step="1">
+                                </div>
+                                <div class="field">
+                                    <label for="cop">Heat pump COP (see note)</label>
+                                    <input type="number" id="cop" value="3.0" min="1" step="0.1">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="btcprice">BTC price ($) — for the comparison only</label>
+                                <input type="number" id="btcprice" value="62000" min="1" step="1000">
+                            </div>
+                            <p>Sats per terahash per day is the only figure here that moves daily; the default reflects roughly 890 EH/s of network hashrate as of late July 2026. Check it against <a href="https://hashrateindex.com" target="_blank" rel="noopener">hashrateindex.com</a> before you quote anything from this tool.</p>
+                            <p>COP 3.0 is a mild-climate figure. Air-source heat pumps derate as it gets colder — in the Southern Tier a seasonal average nearer 2.0&ndash;2.5 is realistic, and below about 5&nbsp;&deg;F many units fall back to resistance strips at COP 1.0. Set this honestly for your climate; it is the number the whole comparison turns on.</p>
+                        </div>
+                    </div>
+
+                    <div class="readout">
+                        <div class="readout-primary">
+                            <div class="metric">
+                                <div class="metric-value" id="outHeat">&mdash;</div>
+                                <div class="metric-label">BTU/hr delivered while running</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" id="outSats">&mdash;</div>
+                                <div class="metric-label">Sats mined per season</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value" id="outNet">&mdash;</div>
+                                <div class="metric-label">Net seasonal heating cost after the mining credit</div>
+                            </div>
+                        </div>
+
+                        <table class="compare">
+                            <caption>Same heat, three ways</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Source</th>
+                                    <th scope="col">kWh drawn</th>
+                                    <th scope="col">Energy cost</th>
+                                    <th scope="col">Mining credit</th>
+                                    <th scope="col">Net</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compareBody"></tbody>
+                        </table>
+                        <p class="fineprint" style="margin:0; text-align:left;" id="verdict"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="band" id="reality">
+            <div class="wrap">
+                <p class="eyebrow">Before you propose this to anyone</p>
+                <h2>Where the argument is weak</h2>
+                <p class="lede">Any institutional buyer worth selling to will raise these four objections, and a vendor who has not raised them first has told you something about themselves. Here they are.</p>
+
+                <div class="reality">
+                    <div class="reality-item">
+                        <h3>A heat pump beats this on energy</h3>
+                        <p>Bitcoin heating has a coefficient of performance of 1.0, exactly like baseboard electric. A decent air-source heat pump delivers 2.5 to 4 units of heat per unit of electricity. Where a heat pump is viable, it wins on energy cost, and the mining revenue has to make up a gap it often cannot. The honest comparison is against <em>resistance</em> heat and against <em>gas</em>, not against the best available technology.</p>
+                    </div>
+                    <div class="reality-item">
+                        <h3>The revenue is volatile and trends down</h3>
+                        <p>Per-terahash revenue falls as network hashrate grows, and halves outright every four years at the subsidy halving. Model the heat as the product and the sats as a rebate of uncertain size. Any proposal whose payback depends on the price of Bitcoin going up is a speculation wearing an engineering costume.</p>
+                    </div>
+                    <div class="reality-item">
+                        <h3>Seasonal loads waste the hardware</h3>
+                        <p>The ASIC is the expensive part, and it only earns while it runs. A space-heating load in Broome County runs maybe five months a year; a domestic hot water load runs twelve. This is the single largest driver of payback period, and it is why water beats air almost every time.</p>
+                    </div>
+                    <div class="reality-item">
+                        <h3>Institutions have procurement, not preferences</h3>
+                        <p>Expect UL listing requirements, electrical inspection, noise limits in occupied space, IT and network security review, and in a public entity a competitive bid process. Budget more calendar time for approvals than for installation. On a SUNY campus, plan on the state fire marshal and campus IT both having standing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-band">
+            <div class="wrap">
+                <h2>Start with a thermal load study</h2>
+                <p class="lede">Send us a year of utility bills and a description of where the heat has to go. We come back with a sized system, a payback range under three hashprice scenarios, and a list of the approvals you will need — vendor-neutral, because we do not manufacture anything on this page except one item.</p>
+                <div class="buttons">
+                    <a href="mailto:hello@education21.io?subject=Thermal%20load%20study" class="primary-cta">Request a study</a>
+                    <a href="index.html#services" class="secondary-cta">See all services</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#mission">Mission</a>
+            <a href="#institutions">Institutions</a>
+            <a href="#business">Business</a>
+            <a href="#sizing">Sizing tool</a>
+            <a href="mailto:hello@education21.io">Contact</a>
+        </div>
+        <p class="fineprint">
+            Third-party products are listed as representative of hardware available as of mid-2026 and are named for identification only; specifications, pricing, and availability are the manufacturer's and change without notice. Confirm current figures with the vendor before purchase. Nothing here is investment advice, and mining revenue estimates are illustrative rather than forecast.
+        </p>
+        <p class="fineprint" style="margin-top:1.5rem;">&copy; 2026 Education21. Decentralizing Bitcoin education.</p>
+    </footer>
+
+    <script>
+    /* ------------------------------------------------------------------
+       PRODUCT DATA — single source of truth.
+       Both the cards and the sizing tool are built from this array, so
+       adding a product here makes it appear in both places.
+
+         w        total electrical draw in watts (= thermal output)
+         miningW  the portion of w actually doing computation
+         th       hashrate in TH/s (0 for non-mining or unpublished)
+         medium   'air' | 'water' | 'immersion'
+         category matches the data-category attributes above
+         own      true for Education21's own product
+       ------------------------------------------------------------------ */
+    const PRODUCTS = [
+      /* ---- Educational institutions and public sites ---- */
+      {
+        id: 'vitrine',
+        name: 'Dual-Zone Conservation Vitrine',
+        vendor: 'Education21',
+        own: true,
+        category: 'institutions',
+        w: 3000, miningW: 3000, th: 200, medium: 'immersion',
+        desc: 'A museum-grade display case whose climate control is a dielectric-immersion ASIC. Conditions the object zone to conservation tolerances, exposes the working hardware behind the glass as the exhibit itself, and offsets its own operating cost. Designed for libraries, special collections, and lobby installations where the teaching value and the thermal load are the same line item.',
+        specs: [['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending']]
+      },
+      {
+        id: 'pool',
+        name: 'Aquatics and Pool Heating Loop',
+        vendor: 'MintGreen-class digital boiler',
+        category: 'institutions',
+        w: 250000, miningW: 250000, th: 16000, medium: 'water',
+        desc: 'Immersion-cooled hash boards feeding a plate heat exchanger on the pool circulation loop. A public pool is close to the ideal load: enormous, thermally forgiving, and running twelve months a year. MintGreen has run exactly this configuration on a municipal pool in British Columbia.',
+        specs: [['Delivery temp', '60–75 °C'], ['Duty', 'Year-round'], ['Precedent', 'North Vancouver, BC']]
+      },
+      {
+        id: 'campus-dhw',
+        name: 'Campus Domestic Hot Water Preheat',
+        vendor: 'Exergy / Softwarm-class',
+        category: 'institutions',
+        w: 60000, miningW: 60000, th: 3800, medium: 'water',
+        desc: 'Sits upstream of existing water heaters in a dormitory, gym, or dining hall and raises incoming mains temperature, so the building keeps its conventional plant as backup and the retrofit stays reversible. The reversibility is usually what gets it past a facilities committee.',
+        specs: [['Integration', 'Preheat, in series'], ['Backup', 'Existing plant retained'], ['Duty', 'Year-round']]
+      },
+      {
+        id: 'teaching-rig',
+        name: 'Instrumented Teaching Rig',
+        vendor: 'Education21',
+        own: true,
+        category: 'institutions',
+        w: 1200, miningW: 1200, th: 80, medium: 'water',
+        desc: 'A bench-scale hydronic loop with logged inlet and outlet temperatures, flow rate, power draw, and pool share, wired to a dashboard students can query. Built to teach the first law of thermodynamics and proof-of-work from the same apparatus. Ships with lab exercises and a marking rubric.',
+        specs: [['Footprint', 'Benchtop'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+      },
+
+      /* ---- Small businesses ---- */
+      {
+        id: 'h1c-bank',
+        name: 'Water Heater Bank',
+        vendor: 'Superheat H1C (multiple)',
+        category: 'business',
+        w: 12000, miningW: 12000, th: 360, medium: 'water',
+        desc: 'Several tank units plumbed in parallel to cover a laundromat, salon, or small hotel. Each replaces the resistive elements in a 50-gallon tank with ASICs; the tank itself provides thermal storage, which smooths the mismatch between when heat is made and when it is drawn.',
+        specs: [['Per unit', '50 gal, ~$2,999'], ['Heat capture', 'Vendor claims >99%'], ['Noise', '~38 dB(A)']]
+      },
+      {
+        id: 'hydronic-shop',
+        name: 'Hydronic Process Heat Skid',
+        vendor: 'Softwarm-class',
+        category: 'business',
+        w: 30000, miningW: 30000, th: 1900, medium: 'immersion',
+        desc: 'A skid-mounted immersion tank feeding a glycol loop for brewery mash water, commercial kitchen sanitation, or industrial washdown. The concrete industry precedent — a 2,500-gallon tank held at temperature on mining heat alone — is the closest analogue to most process loads.',
+        specs: [['Cooling', 'Single-phase immersion'], ['Loop', 'Glycol, plate HX'], ['Duty', 'Continuous']]
+      },
+      {
+        id: 'greenhouse-sm',
+        name: 'Greenhouse Hydronic Module',
+        vendor: 'Canaan liquid-cooled',
+        category: 'business',
+        w: 45000, miningW: 45000, th: 2900, medium: 'water',
+        desc: 'Liquid-cooled servers on a closed loop under the benches, giving controlled-environment growers the steady low-grade baseload heat that winter production needs. Canaan\'s Manitoba proof-of-concept reports roughly 90% of server electricity recovered as usable heat above 75 °C.',
+        specs: [['Water out', '>75 °C'], ['Recovery', '~90% of input'], ['Precedent', 'Bitforest, Manitoba']]
+      },
+      {
+        id: 'shop-array',
+        name: 'Workshop Air Heater Array',
+        vendor: 'D-Central S9 Space Heater Edition',
+        category: 'business',
+        w: 2400, miningW: 2400, th: 34, medium: 'air',
+        desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
+        specs: [['Per unit', '~$235 CAD'], ['Per unit output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
+      },
+
+      /* ---- Homes and small offices ---- */
+      {
+        id: 'maxi',
+        name: 'Heatbit Maxi',
+        vendor: 'Heatbit',
+        category: 'homes',
+        w: 1500, miningW: 1500, th: 40, medium: 'air',
+        desc: 'A 1,500 W plug-in room heater in which every watt is doing computation rather than passing through a coil. Also filters air. The most straightforward way to have a working unit in the room when you make the case for something bigger.',
+        specs: [['Price', '~$1,499'], ['Output', '~5,118 BTU/hr'], ['Mining share', '100% of draw']]
+      },
+      {
+        id: 'trio',
+        name: 'Heatbit Trio',
+        vendor: 'Heatbit',
+        category: 'homes',
+        w: 1500, miningW: 400, th: 10, medium: 'air',
+        desc: 'A hybrid: 400 W of mining runs continuously, with 1,100 W of conventional coil filling in on cold days. Cheaper than an all-mining unit because ASICs are the expensive component, but only a quarter of the draw earns anything. Roughly 40 dB.',
+        specs: [['Mining heat', '1,365 BTU/hr'], ['Total output', '~5,118 BTU/hr'], ['Noise', '~40 dB']]
+      },
+      {
+        id: 'h1c',
+        name: 'Superheat H1C',
+        vendor: 'Superheat',
+        category: 'homes',
+        w: 4000, miningW: 4000, th: 120, medium: 'water',
+        desc: 'A 50-gallon tank water heater with ASICs in place of the resistive elements. Water heating is roughly a fifth of residential energy use and, unlike space heating, it never goes out of season — which is why this form factor has the best duty cycle of anything on the page.',
+        specs: [['Price', '$2,999 founding batch'], ['Ships', 'Q4 2026 (est.)'], ['Noise', '38.4 dB(A) claimed']]
+      },
+      {
+        id: 'panel',
+        name: 'Bitaxe / NerdQaxe Panel',
+        vendor: 'Open source',
+        category: 'homes',
+        w: 100, miningW: 100, th: 5, medium: 'air',
+        desc: 'Open-source solo-mining boards producing a genuinely trivial amount of heat. Included because they are the cheapest way to put working, inspectable hardware in a classroom, and because solo templates let students watch block construction rather than a pool dashboard.',
+        specs: [['Output', '~341 BTU/hr'], ['Mode', 'Solo capable'], ['Role', 'Demonstration']]
+      },
+
+      /* ---- Industrial and district ---- */
+      {
+        id: 'district',
+        name: 'District Heating Integration',
+        vendor: 'MARA-class',
+        category: 'district',
+        w: 1000000, miningW: 1000000, th: 64000, medium: 'water',
+        desc: 'Megawatt-scale hash boards tied into an existing municipal thermal network, displacing peat, oil, or wood at the margin. MARA reports integrating into two Finnish district systems in under thirty days, one of which serves a network covering more than 11,000 residents.',
+        specs: [['Scale', '1 MW+ thermal'], ['Integration', '<30 days reported'], ['Displaces', 'Peat, oil, wood']]
+      },
+      {
+        id: 'container',
+        name: 'Containerised Municipal Heat Unit',
+        vendor: 'Power Mining-class',
+        category: 'district',
+        w: 2000000, miningW: 2000000, th: 128000, medium: 'water',
+        desc: 'A shipping-container plant that arrives pre-plumbed for connection to a municipal heat main. Sited on existing utility land, it turns a substation interconnect into a heat source without a building permit for new structure.',
+        specs: [['Form', '20/40 ft container'], ['Siting', 'Utility parcel'], ['Interconnect', 'Heat main + MV']]
+      },
+      {
+        id: 'cea',
+        name: 'Controlled-Environment Agriculture',
+        vendor: 'Canaan + grower partnership',
+        category: 'district',
+        w: 3000000, miningW: 3000000, th: 165000, medium: 'water',
+        desc: 'The full 3 MW configuration Canaan deployed in Manitoba: 360 liquid-cooled Avalon units and four cooling modules on a closed loop into a year-round tomato greenhouse, at an all-in power cost near $0.035/kWh. Eliminating the cooling towers is itself a capital saving.',
+        specs: [['Deployment', '3 MW, 360 units'], ['Power cost', '~$0.035/kWh'], ['Bonus', 'No cooling towers']]
+      }
+    ];
+
+    const CATEGORIES = [
+      { id: 'institutions', label: 'Educational institutions and public sites', lo: 10000,  hi: 1000000,  color: 'var(--t3)' },
+      { id: 'business',     label: 'Small businesses',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
+      { id: 'homes',        label: 'Homes and small offices',                    lo: 300,    hi: 1500,     color: 'var(--t1)' },
+      { id: 'district',     label: 'Industrial and district scale',              lo: 500000, hi: 10000000, color: 'var(--t4)' }
+    ];
+
+    /* ---------- helpers ---------- */
+    const BTU_PER_W = 3.412;
+    const LOG_MIN = 2;   // 100 W
+    const LOG_MAX = 7;   // 10 MW
+
+    const pos = w => ((Math.log10(w) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * 100;
+
+    const watts = w => w >= 1000000 ? (w / 1000000) + ' MW'
+                    : w >= 1000 ? (w / 1000) + ' kW'
+                    : w + ' W';
+
+    const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+    const compact = n => {
+      if (n >= 1000000) return (n / 1000000).toFixed(n >= 10000000 ? 0 : 2) + 'M';
+      if (n >= 1000) return Math.round(n).toLocaleString('en-US');
+      return Math.round(n).toString();
+    };
+
+    /* ---------- thermal scale ---------- */
+    (function buildScale() {
+      const ticks = document.getElementById('scaleTicks');
+      [100, 1000, 10000, 100000, 1000000, 10000000].forEach(w => {
+        const s = document.createElement('span');
+        s.textContent = watts(w);
+        s.style.left = pos(w) + '%';
+        ticks.appendChild(s);
+      });
+
+      const rows = document.getElementById('scaleRows');
+      CATEGORIES.forEach(c => {
+        const row = document.createElement('div');
+        row.className = 'scale-row';
+
+        const seg = document.createElement('a');
+        seg.className = 'scale-seg';
+        seg.href = '#' + c.id;
+        seg.style.left = pos(c.lo) + '%';
+        seg.style.width = (pos(c.hi) - pos(c.lo)) + '%';
+        seg.style.background = c.color;
+        seg.innerHTML = '<span>' + c.label + '</span>';
+        seg.setAttribute('aria-label', c.label + ', ' + watts(c.lo) + ' to ' + watts(c.hi));
+
+        row.appendChild(seg);
+        rows.appendChild(row);
+      });
+    })();
+
+    /* ---------- product cards ---------- */
+    (function buildCards() {
+      CATEGORIES.forEach(c => {
+        const host = document.querySelector('.cards[data-category="' + c.id + '"]');
+        if (!host) return;
+
+        PRODUCTS.filter(p => p.category === c.id).forEach(p => {
+          const card = document.createElement('article');
+          card.className = 'card';
+
+          const btu = Math.round(p.miningW * BTU_PER_W);
+          const extra = p.specs.map(s =>
+            '<div class="spec"><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'
+          ).join('');
+
+          card.innerHTML =
+            '<div class="card-thermal" style="width:' + Math.max(12, pos(p.w)) + '%;background:' + c.color + '"></div>' +
+            '<p class="card-vendor' + (p.own ? ' own' : '') + '">' + (p.own ? 'Education21 &middot; own product' : p.vendor) + '</p>' +
+            '<h3>' + p.name + '</h3>' +
+            '<p class="card-desc">' + p.desc + '</p>' +
+            '<dl class="specs">' +
+              '<div class="spec"><dt>Thermal output</dt><dd class="hot">' + compact(btu) + ' BTU/hr</dd></div>' +
+              '<div class="spec"><dt>Electrical draw</dt><dd>' + watts(p.w) + '</dd></div>' +
+              '<div class="spec"><dt>Hashrate</dt><dd>' + (p.th ? compact(p.th) + ' TH/s' : '—') + '</dd></div>' +
+              '<div class="spec"><dt>Heat medium</dt><dd>' + p.medium + '</dd></div>' +
+              extra +
+            '</dl>';
+
+          host.appendChild(card);
+        });
+      });
+    })();
+
+    /* ---------- sizing tool ---------- */
+    (function sizing() {
+      const sel = document.getElementById('unit');
+
+      CATEGORIES.forEach(c => {
+        const group = document.createElement('optgroup');
+        group.label = c.label;
+        PRODUCTS.filter(p => p.category === c.id).forEach(p => {
+          const opt = document.createElement('option');
+          opt.value = p.id;
+          opt.textContent = p.name + ' — ' + watts(p.w);
+          group.appendChild(opt);
+        });
+        sel.appendChild(group);
+      });
+
+      sel.value = 'campus-dhw';
+
+      const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'cop', 'btcprice'];
+      const val = id => parseFloat(document.getElementById(id).value) || 0;
+
+      function recalc() {
+        const p = PRODUCTS.find(x => x.id === sel.value);
+        if (!p) return;
+
+        const qty = Math.max(1, val('qty'));
+        const hours = Math.min(24, Math.max(0, val('hours')));
+        const days = Math.max(0, val('days'));
+        const rate = val('rate');
+        const satsPerThDay = val('hashprice');
+        const cop = Math.max(1, val('cop'));
+        const btc = Math.max(1, val('btcprice'));
+
+        const totalW = p.w * qty;
+        const btuPerHr = totalW * BTU_PER_W;
+
+        // Energy actually drawn to make the heat
+        const kWh = (totalW / 1000) * hours * days;
+        const elecCost = kWh * rate;
+
+        // Mining only earns while the unit runs
+        const sats = p.th * qty * satsPerThDay * days * (hours / 24);
+        const satsValue = (sats / 100000000) * btc;
+
+        const net = elecCost - satsValue;
+
+        // Same delivered heat from a heat pump needs COP times less electricity
+        const hpKWh = kWh / cop;
+        const hpCost = hpKWh * rate;
+
+        document.getElementById('outHeat').textContent = compact(btuPerHr);
+        document.getElementById('outSats').textContent = compact(sats);
+        document.getElementById('outNet').textContent = money(net);
+
+        const rows = [
+          { name: p.name + (qty > 1 ? ' ×' + qty : ''), kWh: kWh, cost: elecCost, credit: satsValue, net: net },
+          { name: 'Electric resistance', kWh: kWh, cost: elecCost, credit: 0, net: elecCost },
+          { name: 'Heat pump @ COP ' + cop.toFixed(1), kWh: hpKWh, cost: hpCost, credit: 0, net: hpCost }
+        ];
+
+        const best = Math.min.apply(null, rows.map(r => r.net));
+
+        document.getElementById('compareBody').innerHTML = rows.map(r =>
+          '<tr' + (Math.abs(r.net - best) < 0.01 ? ' class="winner"' : '') + '>' +
+            '<th scope="row">' + r.name + '</th>' +
+            '<td>' + compact(r.kWh) + '</td>' +
+            '<td>' + money(r.cost) + '</td>' +
+            '<td>' + (r.credit ? money(r.credit) : '—') + '</td>' +
+            '<td>' + money(r.net) + '</td>' +
+          '</tr>'
+        ).join('');
+
+        const gap = net - hpCost;
+        document.getElementById('verdict').textContent = gap <= 0
+          ? 'At these assumptions the mining credit more than closes the gap to a heat pump — worth a real study, and worth re-running at a lower hashprice before you commit.'
+          : 'At these assumptions a heat pump still delivers this heat for ' + money(Math.abs(gap)) +
+            ' less per season. That gap is the number to beat: either the load is one a heat pump cannot serve, or the case rests on displacing gas or resistance heat instead.';
+      }
+
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', recalc);
+        el.addEventListener('change', recalc);
+      });
+
+      recalc();
+    })();
+    </script>
+</body>
+</html>
