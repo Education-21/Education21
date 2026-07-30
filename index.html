@@ -58,11 +58,19 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             font-family: 'Syne', sans-serif;
             font-size: 2rem;
             font-weight: 700;
             color: var(--orange);
             letter-spacing: -0.02em;
+        }
+        
+        .logo img {
+            height: 2.5rem;
+            width: auto;
         }
 
         nav {
@@ -566,7 +574,10 @@
 </head>
 <body>
     <header>
-        <div class="logo">Education21</div>
+        <div class="logo">
+            Education21
+            <img src="logo.png" alt="">
+        </div>
         <nav>
             <a href="#mission">Mission</a>
             <a href="#services">Services</a>
