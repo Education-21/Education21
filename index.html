@@ -197,8 +197,9 @@
 
         /* Mission Section */
         .mission-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 3rem;
             margin-top: 4rem;
             max-width: 1400px;
@@ -207,6 +208,8 @@
         }
 
         .mission-card {
+            flex: 1 1 350px;
+            max-width: 435px;
             background: var(--accent);
             border: 1px solid rgba(247, 147, 26, 0.2);
             padding: 3rem;
@@ -586,18 +589,18 @@
         <div class="mission-grid">
             <div class="mission-card">
                 <h3>Educate the Educators</h3>
-                <p>Bitcoin is increasing a core technology across diverse fields, careers, and everyday life, from the arts to energy. We provide the Bitcoin literacy to be prepared for upcoming cohorts.</p>
+                <p>Bitcoin is becoming an integrated technology across fields and careers, from the arts to energy. We provide full Bitcoin literacy to be prepared for coming cohorts.</p>
             </div>
             <div class="mission-card">
-                <h3>Build Curricula</h3>
-                <p>We have years of experience providing Bitcoin education on US campuses, teaching the fundamentals of Bitcoin, experimenting with what it can do, and supervising upper-level Bitcoin research and new tech. From this experience, we can build curricula that is ready to deploy in any academic setting.</p>
+                <h3>Curriculum Integration</h3>
+                <p>Our team were the first to offer specific Bitcoin courses and activities on campuses. From years of experience teaching Bitcoin, experimenting with its applications, and supervising upper-level Bitcoin research, we can build curricula for any academic setting.</p>
             </div>
             <div class="mission-card">
                 <h3>Provide Opportunities</h3>
-                <p>We coordinate placement into Bitcoin internships, research fellowships, jobs, and careers across the US.</p>
+                <p>We coordinate placement into Bitcoin internships, research fellowships, jobs, and careers across the US, and have done so more successfully than anyone else in the industry.</p>
             </div>
             <div class="mission-card">
-                <h3>Lower Electricity Costs w/Bitcoin as heating </h3>
+                <h3>Lower Electricity Costs w/Bitcoin</h3>
                 <p>Bitcoin miners are electric heaters. We use them to provide custom solutions to cut your electricity costs, increase your use of renewables, and assist with financial sustainability.</p>
             </div>
             <div class="mission-card">
