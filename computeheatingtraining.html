@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute Heating Training - Education21</title>
+    <meta name="description" content="A 17-credit-hour skill set for designing, installing and operating systems that recover heat from Bitcoin miners and AI computing equipment.">
+    <link rel="canonical" href="https://education21.io/computeheatingtraining.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://education21.io/computeheatingtraining.html">
+    <meta property="og:title" content="Compute Heating Training - Education21">
+    <meta property="og:description" content="Every watt of compute becomes heat. Learn to put it to work: 17 credit hours across 5 courses.">
+    <meta property="og:image" content="https://education21.io/logo.png">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#8383;</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #141414;
+            --panel-2: #1a1a1a;
+            --line: #2a2a2a;
+            --text: #f2f2f2;
+            --muted: #a3a3a3;
+            --dim: #8a8a8a;
+            --orange: #f7931a;
+            --orange-deep: #b8690f;
+            --display: 'Syne', 'Arial Black', system-ui, sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+            --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 48px 48px;
+            color: var(--text);
+            font-family: var(--body);
+            line-height: 1.55;
+        }
+        a { color: inherit; }
+        a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        header.site {
+            border-bottom: 1px solid var(--line);
+            position: sticky; top: 0; z-index: 10;
+            background: rgba(10,10,10,.92);
+            backdrop-filter: blur(8px);
+        }
+        header.site .wrap {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; padding-top: 18px; padding-bottom: 18px; flex-wrap: wrap;
+        }
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            font-family: var(--display); font-weight: 800; font-size: 1.35rem;
+            text-decoration: none; letter-spacing: -.01em;
+        }
+        .logo img { height: 30px; width: auto; }
+        nav.main { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; }
+        nav.main a {
+            text-decoration: none; font-size: .92rem; color: var(--muted);
+            transition: color .15s;
+        }
+        nav.main a:hover, nav.main a[aria-current="page"] { color: var(--orange); }
+        nav.main .cta-button {
+            background: var(--orange); color: #111; font-weight: 600;
+            padding: 8px 16px; border-radius: 6px;
+        }
+        nav.main .cta-button:hover { color: #111; background: #ffa733; }
+
+        /* Shared */
+        .eyebrow {
+            font-family: var(--mono); font-weight: 700; color: var(--orange);
+            letter-spacing: .18em; font-size: .78rem; text-transform: uppercase;
+        }
+        .mono { font-family: var(--mono); }
+        section { padding: 36px 0; }
+        .sec-head {
+            display: flex; align-items: center; gap: 16px; margin-bottom: 22px;
+        }
+        .sec-head .num { font-family: var(--mono); color: var(--orange); font-weight: 700; font-size: .85rem; }
+        .sec-head h2 {
+            font-family: var(--display); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+            white-space: nowrap;
+        }
+        .sec-head .note { font-family: var(--mono); color: var(--dim); letter-spacing: .14em; font-size: .78rem; white-space: nowrap; }
+        .sec-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+        .card {
+            background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+        }
+
+        /* Hero */
+        .hero { padding-top: 56px; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+        .hero h1 {
+            font-family: var(--display); font-weight: 800; line-height: 1.02;
+            font-size: clamp(2.4rem, 5.6vw, 4.2rem); letter-spacing: -.02em;
+            margin: 18px 0 24px;
+        }
+        .hero h1 .work { color: var(--orange); display: block; }
+        .hero .lede { font-size: 1.15rem; color: #d4d4d4; max-width: 60ch; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 32px; }
+        .stat { padding: 18px 20px; }
+        .stat .big { font-family: var(--display); font-weight: 800; color: var(--orange); font-size: 2rem; line-height: 1; }
+        .stat .big small { color: var(--text); font-size: .95rem; font-weight: 700; margin-left: 4px; }
+        .stat p { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; margin-top: 12px; line-height: 1.5; }
+        .diagram { padding: 18px; }
+        .diagram svg { width: 100%; height: auto; display: block; }
+
+        /* Four ways */
+        .ways { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .way { display: flex; gap: 16px; padding: 20px; align-items: flex-start; }
+        .icon {
+            flex: 0 0 52px; height: 52px; border-radius: 10px;
+            background: rgba(247,147,26,.14); display: grid; place-items: center;
+        }
+        .icon svg { width: 28px; height: 28px; stroke: var(--orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .way h3 { font-family: var(--display); font-weight: 700; font-size: 1.08rem; line-height: 1.2; margin-bottom: 6px; }
+        .way p { color: var(--muted); font-size: .95rem; }
+
+        /* Skills + careers */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .skills { list-style: none; display: grid; gap: 12px; }
+        .skills li { display: grid; grid-template-columns: 22px 1fr; font-size: 1rem; color: #d4d4d4; }
+        .skills li::before { content: "\20BF"; color: var(--orange); font-weight: 700; }
+        .skills strong { color: var(--text); }
+        .careers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .career { display: flex; gap: 14px; padding: 18px; align-items: flex-start; }
+        .career svg { flex: 0 0 26px; width: 26px; height: 26px; stroke: var(--orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-top: 3px; }
+        .career h3 { font-family: var(--display); font-weight: 700; font-size: 1.15rem; }
+        .career p { color: var(--muted); font-size: .93rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .tags span {
+            font-family: var(--mono); font-size: .75rem; letter-spacing: .08em;
+            border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; color: #d4d4d4;
+            background: var(--panel);
+        }
+
+        /* Pathway */
+        .path { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 0; }
+        .course { padding: 22px; position: relative; display: flex; flex-direction: column; }
+        .course.new { border-color: var(--orange); }
+        .badge {
+            position: absolute; top: -11px; left: 18px;
+            background: var(--orange); color: #111; font-family: var(--mono); font-weight: 700;
+            font-size: .68rem; letter-spacing: .12em; padding: 2px 7px; border-radius: 3px;
+        }
+        .course .code { display: flex; justify-content: space-between; font-family: var(--mono); font-size: .85rem; margin-bottom: 10px; }
+        .course .code b { color: var(--orange); letter-spacing: .06em; }
+        .course .code span { color: var(--dim); }
+        .course h3 { font-family: var(--display); font-weight: 700; font-size: 1.2rem; line-height: 1.2; margin-bottom: 10px; }
+        .course p { color: var(--muted); font-size: .93rem; }
+        .course.goal { border: 1.5px dashed var(--orange); background: rgba(247,147,26,.05); }
+        .arrow { display: grid; place-items: center; padding: 0 10px; color: var(--orange); font-size: 1.4rem; }
+        .path-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+        .bar { display: flex; align-items: center; gap: 16px; padding: 18px 22px; position: relative; }
+        .bar.new { border-color: var(--orange); }
+        .bar .code { font-family: var(--mono); color: var(--orange); font-weight: 700; white-space: nowrap; }
+        .bar h3 { font-family: var(--display); font-weight: 700; font-size: 1.05rem; flex: 1; line-height: 1.25; }
+        .bar .hrs { font-family: var(--mono); color: var(--dim); white-space: nowrap; }
+        .bar .glyph { color: var(--orange); font-size: 1.4rem; font-weight: 700; }
+
+        /* CTA */
+        .cta {
+            background: var(--orange); color: #111; border-radius: 14px;
+            padding: 34px 38px; display: flex; justify-content: space-between; align-items: center;
+            gap: 24px; flex-wrap: wrap; margin: 20px 0 56px;
+        }
+        .cta h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.1; }
+        .cta p { font-family: var(--mono); font-weight: 500; letter-spacing: .12em; font-size: .8rem; margin-top: 10px; text-transform: uppercase; }
+        .cta a.btn {
+            background: #111; color: var(--orange); text-decoration: none; font-weight: 600;
+            padding: 14px 22px; border-radius: 8px; white-space: nowrap;
+        }
+        .cta a.btn:hover { background: #000; }
+        .cta a.btn:focus-visible { outline-color: #111; }
+
+        footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--dim); font-size: .88rem; }
+        footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        footer a { color: var(--muted); text-decoration: none; margin-left: 18px; }
+        footer a:hover { color: var(--orange); }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .hero-grid, .two-col { grid-template-columns: 1fr; }
+            .ways { grid-template-columns: 1fr 1fr; }
+            .path { grid-template-columns: 1fr; gap: 22px; }
+            .arrow { display: none; }
+        }
+        @media (max-width: 640px) {
+            .stats, .ways, .careers, .path-row2 { grid-template-columns: 1fr; }
+            .sec-head h2, .sec-head .note { white-space: normal; }
+            .sec-head .note { display: none; }
+            .bar { flex-wrap: wrap; }
+            .cta { padding: 26px; }
+            footer a { margin: 0 14px 0 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .flow { animation: none !important; }
+        }
+        @keyframes flow { to { stroke-dashoffset: -24; } }
+        .flow { animation: flow 1.6s linear infinite; }
+    </style>
+</head>
+<body>
+
+<header class="site">
+    <div class="wrap">
+        <a class="logo" href="index.html">Education21 <img src="logo.png" alt=""></a>
+        <nav class="main" aria-label="Main">
+            <a href="index.html#mission">Mission</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#expertise">Expertise</a>
+            <a href="computeheatingtraining.html" aria-current="page">Compute Heating Training</a>
+            <a href="bitcoinheatingsolutions.html">Bitcoin Heating Solutions</a>
+            <a href="index.html#contact" class="cta-button">Get Started</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="wrap hero-grid">
+            <div>
+                <p class="eyebrow">Compute-heating technology</p>
+                <h1>Every watt of compute becomes heat. <span class="work">Put it to work.</span></h1>
+                <p class="lede">Design, build, install, operate and maintain systems that recover the heat from Bitcoin miners and AI computing equipment for space, water, district and process heating. Hands-on, trade-ready, and built for a new industry.</p>
+                <div class="stats">
+                    <div class="card stat">
+                        <div class="big">3,412<small>BTU/h</small></div>
+                        <p>of heat from every 1 kW of compute</p>
+                    </div>
+                    <div class="card stat">
+                        <div class="big">17<small>hrs</small></div>
+                        <p>credit hours across 5 courses</p>
+                    </div>
+                    <div class="card stat">
+                        <div class="big">&#8383;<small>+ heat</small></div>
+                        <p>mining revenue offsets the heating bill</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card diagram" role="img" aria-label="Diagram: 240 or 480 volt power feeds an ASIC or GPU hashboard. Its heat flows out to space and district heating, greenhouse and process heating, and domestic hot water preheat, while mining revenue in sats offsets the cost.">
+                <svg viewBox="0 0 520 500" xmlns="http://www.w3.org/2000/svg" font-family="JetBrains Mono, monospace">
+                    <!-- Power in -->
+                    <text x="30" y="44" fill="#a3a3a3" font-size="12" letter-spacing="3">POWER IN</text>
+                    <text x="30" y="68" fill="#f2f2f2" font-size="15" font-weight="700">240 V / 480 V</text>
+                    <line x1="98" y1="82" x2="98" y2="172" stroke="#f2f2f2" stroke-width="2" stroke-dasharray="4 5"/>
+                    <path d="M104 100 L92 124 L102 124 L94 146 L110 118 L100 118 Z" fill="#f7931a"/>
+
+                    <!-- Hashboard -->
+                    <rect x="30" y="172" width="176" height="136" rx="10" fill="#0d0d0d" stroke="#3a3a3a" stroke-width="2"/>
+                    <rect x="40" y="182" width="156" height="18" rx="3" fill="#1d1d1d"/>
+                    <circle cx="50" cy="191" r="3" fill="#f7931a"/><circle cx="60" cy="191" r="3" fill="#555"/>
+                    <text x="96" y="195" fill="#a3a3a3" font-size="9" letter-spacing="2">HASHBOARD</text>
+                    <g stroke="#555" stroke-width="2" fill="#141414">
+                        <circle cx="78" cy="252" r="38"/><circle cx="160" cy="252" r="34"/>
+                    </g>
+                    <g fill="#333">
+                        <ellipse cx="78" cy="232" rx="8" ry="16"/><ellipse cx="78" cy="272" rx="8" ry="16"/>
+                        <ellipse cx="58" cy="252" rx="16" ry="8"/><ellipse cx="98" cy="252" rx="16" ry="8"/>
+                        <ellipse cx="160" cy="234" rx="7" ry="14"/><ellipse cx="160" cy="270" rx="7" ry="14"/>
+                        <ellipse cx="142" cy="252" rx="14" ry="7"/><ellipse cx="178" cy="252" rx="14" ry="7"/>
+                    </g>
+                    <circle cx="78" cy="252" r="8" fill="#f7931a"/><circle cx="160" cy="252" r="7" fill="#f7931a"/>
+                    <text x="118" y="334" fill="#f2f2f2" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="2">ASIC / GPU</text>
+                    <text x="118" y="352" fill="#8a8a8a" font-size="10" text-anchor="middle" letter-spacing="2">THE HEAT SOURCE</text>
+
+                    <!-- Heat flows -->
+                    <g fill="none" stroke="#f7931a" stroke-width="2.5">
+                        <path d="M206 200 C 270 190, 290 90, 362 88"/>
+                        <path d="M206 240 L 362 238"/>
+                        <path d="M206 280 C 270 300, 290 380, 362 382"/>
+                    </g>
+                    <g fill="none" stroke="#b8690f" stroke-width="1.4" stroke-dasharray="3 5" class="flow">
+                        <path d="M210 220 C 270 210, 290 120, 340 110"/>
+                        <path d="M210 262 C 280 280, 300 350, 340 360"/>
+                    </g>
+                    <g fill="#f7931a">
+                        <path d="M362 81 L374 88 L362 95 Z"/><path d="M362 231 L374 238 L362 245 Z"/><path d="M362 375 L374 382 L362 389 Z"/>
+                    </g>
+                    <text x="248" y="160" fill="#f7931a" font-size="11" font-weight="700" letter-spacing="2" transform="rotate(-55 248 160)">HEAT</text>
+
+                    <!-- Outputs -->
+                    <g stroke="#3a3a3a" stroke-width="2" fill="#0d0d0d">
+                        <rect x="380" y="50" width="122" height="76" rx="8"/>
+                        <rect x="380" y="200" width="122" height="76" rx="8"/>
+                        <rect x="380" y="344" width="122" height="76" rx="8"/>
+                    </g>
+                    <g fill="none" stroke="#f2f2f2" stroke-width="2" stroke-linejoin="round">
+                        <path d="M394 92 L412 76 L430 92 M398 89 V106 H426 V89"/>
+                        <path d="M394 254 V240 Q412 218 430 240 V254 Z M412 222 V254 M394 242 H430"/>
+                        <rect x="398" y="362" width="26" height="42" rx="7"/>
+                    </g>
+                    <rect x="408" y="98" width="8" height="8" fill="#f7931a"/>
+                    <path d="M411 372 Q404 384 411 390 Q418 384 411 372 Z" fill="#f7931a"/>
+                    <text x="438" y="84" fill="#f2f2f2" font-size="11" font-weight="700">SPACE</text>
+                    <text x="438" y="100" fill="#a3a3a3" font-size="9">+ district</text>
+                    <text x="438" y="234" fill="#f2f2f2" font-size="11" font-weight="700">GROW</text>
+                    <text x="438" y="250" fill="#a3a3a3" font-size="9">+ process</text>
+                    <text x="434" y="378" fill="#f2f2f2" font-size="11" font-weight="700">WATER</text>
+                    <text x="434" y="394" fill="#a3a3a3" font-size="9">DHW preheat</text>
+                    <text x="441" y="448" fill="#8a8a8a" font-size="10" text-anchor="middle" letter-spacing="3">HEAT OUT</text>
+
+                    <!-- Sats out -->
+                    <line x1="118" y1="362" x2="118" y2="378" stroke="#f7931a" stroke-width="2"/>
+                    <circle cx="118" cy="412" r="32" fill="#f7931a"/>
+                    <text x="118" y="424" fill="#111" font-size="32" font-weight="700" text-anchor="middle" font-family="Arial, sans-serif">&#8383;</text>
+                    <text x="164" y="406" fill="#f2f2f2" font-size="13" font-weight="700" letter-spacing="2">SATS OUT</text>
+                    <text x="164" y="424" fill="#8a8a8a" font-size="10" letter-spacing="1.5">REVENUE OFFSETS COST</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 -->
+    <section>
+        <div class="wrap">
+            <div class="sec-head"><span class="num">01</span><h2>Four ways to capture the heat</h2></div>
+            <div class="ways">
+                <div class="card way">
+                    <div class="icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="6"/><path d="M8 12 V6 M8 12 L3 15 M8 12 L13 15 M16 9 H22 M16 12 H22 M16 15 H22"/></svg></div>
+                    <div><h3>Direct &amp; Ducted Air</h3><p>Exhaust heats rooms, shops and barns.</p></div>
+                </div>
+                <div class="card way">
+                    <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="M14 5 L11 2 M14 5 L11 8 M10 19 L13 22 M10 19 L13 16"/><circle cx="12" cy="12" r="2"/></svg></div>
+                    <div><h3>Hydronic Loop</h3><p>Heat exchangers feed radiant and boiler systems.</p></div>
+                </div>
+                <div class="card way">
+                    <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 4 V20 H21 V4"/><rect x="7" y="9" width="3" height="8"/><rect x="14" y="9" width="3" height="8"/><path d="M4 12 H6 M11 12 H13 M18 12 H20"/></svg></div>
+                    <div><h3>Immersion Cooling</h3><p>Single- and two-phase fluid baths.</p></div>
+                </div>
+                <div class="card way">
+                    <div class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="11" height="18" rx="4"/><path d="M7 12 H12 M7 15 H12 M15 7 H18 V10"/><path d="M18 13 Q16 16 18 18 Q20 16 18 13 Z"/></svg></div>
+                    <div><h3>Hot Water Preheat</h3><p>Preheats domestic hot water.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 + 03 -->
+    <section>
+        <div class="wrap two-col">
+            <div>
+                <div class="sec-head"><span class="num">02</span><h2>What you’ll be able to do</h2></div>
+                <ul class="skills">
+                    <li><span><strong>Size the power.</strong> Split- and three-phase supply, derating, circuit sizing.</span></li>
+                    <li><span><strong>Run the hardware.</strong> ASIC and GPU firmware, undervolting, pool setup.</span></li>
+                    <li><span><strong>Do the heat math.</strong> Watts to BTU/h, COP, heating load, compute vs. heat pumps.</span></li>
+                    <li><span><strong>Capture the heat.</strong> Air, hydronic, immersion and hot-water heat exchangers.</span></li>
+                    <li><span><strong>Automate it.</strong> Thermostats, time-of-use, demand response and safety shutdown.</span></li>
+                    <li><span><strong>Troubleshoot it.</strong> Measure electrical, thermal and hashing performance.</span></li>
+                    <li><span><strong>Prove the payback.</strong> Power cost, heat offset, revenue in sats, payback period.</span></li>
+                    <li><span><strong>Hold your own Bitcoin.</strong> Run a node, set up a wallet and keep your BTC safe.</span></li>
+                </ul>
+            </div>
+            <div>
+                <div class="sec-head"><span class="num">03</span><h2>Where it takes you</h2></div>
+                <div class="careers">
+                    <div class="card career">
+                        <svg viewBox="0 0 24 24"><circle cx="16" cy="8" r="4"/><path d="M13 11 L4 20 M6 18 L8 20"/></svg>
+                        <div><h3>Installer</h3><p>Residential, farm and greenhouse sites</p></div>
+                    </div>
+                    <div class="card career">
+                        <svg viewBox="0 0 24 24"><path d="M2 12 H7 L10 5 L14 19 L17 12 H22"/></svg>
+                        <div><h3>Technician</h3><p>Measure, monitor and troubleshoot</p></div>
+                    </div>
+                    <div class="card career">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5 H8 M7 16.5 H8"/></svg>
+                        <div><h3>Operator</h3><p>Mining and hosting facilities</p></div>
+                    </div>
+                    <div class="card career">
+                        <svg viewBox="0 0 24 24"><path d="M12 2 C16 6 16 12 14 16 H10 C8 12 8 6 12 2 Z"/><circle cx="12" cy="9" r="2"/><path d="M10 16 L8 21 M14 16 L16 21"/></svg>
+                        <div><h3>Founder</h3><p>Launch a company in a new industry</p></div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span>Residential</span><span>Agricultural</span><span>Greenhouse</span><span>Light commercial</span>
+                    <span>Mining &amp; hosting</span><span>HVAC trades</span><span>Electrical trades</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 -->
+    <section>
+        <div class="wrap">
+            <div class="sec-head"><span class="num">04</span><h2>The course pathway</h2><span class="note">17 CREDIT HOURS</span></div>
+            <div class="path">
+                <div class="card course">
+                    <div class="code"><b>ENRG 1031</b><span>4 HR</span></div>
+                    <h3>DC and AC Circuits</h3>
+                    <p>The electrical foundation for everything that follows.</p>
+                </div>
+                <div class="arrow" aria-hidden="true">&#8594;</div>
+                <div class="card course new">
+                    <span class="badge">NEW</span>
+                    <div class="code"><b>ENRG 1040</b><span>3 HR</span></div>
+                    <h3>Compute-Heating Systems I</h3>
+                    <p>Hardware and electrical integration: load calcs, PSUs, firmware, safety.</p>
+                </div>
+                <div class="arrow" aria-hidden="true">&#8594;</div>
+                <div class="card course new">
+                    <span class="badge">NEW</span>
+                    <div class="code"><b>ENRG 2040</b><span>3 HR</span></div>
+                    <h3>Compute-Heating Systems II</h3>
+                    <p>Heat recovery, controls, economics, plus a hands-on install project.</p>
+                </div>
+                <div class="arrow" aria-hidden="true">&#8674;</div>
+                <div class="card course goal">
+                    <div class="code"><b>THE GOAL</b></div>
+                    <h3>Build your own hashrate-heating product</h3>
+                    <p>From idea to working build.</p>
+                </div>
+            </div>
+            <div class="path-row2">
+                <div class="card bar">
+                    <span class="glyph" aria-hidden="true">&#177;</span>
+                    <span class="code">MTH 1208</span>
+                    <h3>Technical Mathematics</h3>
+                    <span class="hrs">4 HR</span>
+                </div>
+                <div class="card bar new">
+                    <span class="badge">NEW</span>
+                    <span class="glyph" aria-hidden="true">&#8383;</span>
+                    <span class="code">INFO 1120</span>
+                    <h3>Introduction to Bitcoin and Hashrate Heating</h3>
+                    <span class="hrs">3 HR</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="wrap">
+        <div class="cta">
+            <div>
+                <h2>Learn a trade that runs on Bitcoin.</h2>
+                <p>Skills increasingly in demand: install, operate, launch</p>
+            </div>
+            <a class="btn" href="index.html#contact">Bring this program to your college</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>&copy; 2026 Education21. Knowledge for the next generations.</span>
+        <span>
+            <a href="index.html#mission">Mission</a><a href="index.html#services">Services</a><a href="bitcoinheatingsolutions.html">Bitcoin Heating Solutions</a><a href="index.html#contact">Contact</a>
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>
