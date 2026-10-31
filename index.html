@@ -214,6 +214,41 @@
             text-align: center;
         }
 
+        /* Products Section */
+        .products-intro {
+            max-width: 62ch;
+            margin: -1rem auto 3rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .product-model {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .product-model iframe {
+            display: block;
+            width: 100%;
+            height: 600px;
+            border: 1px solid rgba(247, 147, 26, 0.2);
+            border-radius: 8px;
+            background: var(--dark);
+        }
+
+        .product-note {
+            margin-top: 0.75rem;
+            color: var(--gray);
+            font-size: 0.75rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .product-model iframe { height: 640px; }
+        }
+
         /* Mission Section */
         .mission-grid {
             display: flex;
@@ -590,9 +625,9 @@
             <img src="logo.png" alt="">
         </div>
         <nav>
-            <a href="#mission">Mission</a>
+            <a href="#products">Products</a>
             <a href="#services">Services</a>
-            <a href="#expertise">Expertise</a>
+            <a href="#mission">Who We Are</a>
             <a href="computeheatingtraining.html"> <span class="highlight">Compute-Heating Training</span> </a>
             <a href="bitcoinheatingsolutions.html"> <span class="highlight">Bitcoin heating solutions</span> </a>
             <a href="#contact" class="cta-button">Get Started</a>
@@ -607,34 +642,17 @@
         </div>
     </section>
 
-    <section id="mission">
-        <h2>Our Mission</h2>
-        <div class="mission-grid">
-            <div class="mission-card">
-                <h3>Educate the Educators</h3>
-                <p>Bitcoin is becoming an integrated technology across fields and careers, from the arts to energy. We provide full Bitcoin literacy to be prepared for coming cohorts.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Curriculum Integration</h3>
-                <p>Our team were firsts to offer Bitcoin courses on US campuses. From years of experience teaching Bitcoin, experimenting with its applications, and supervising upper-level Bitcoin research, we can build curricula for any academic setting.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Provide Opportunities</h3>
-                <p>We coordinate placement into Bitcoin internships, research fellowships, jobs, and careers across the US, and have done so more successfully than anyone else in the industry.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Lower Electricity Costs w/Bitcoin Mining</h3>
-                <p>Bitcoin miners are electric heaters. We use them to provide custom solutions to cut your electricity costs, increase your use of renewables, and assist with financial sustainability.</p>
-            </div>
-            <div class="mission-card">
-                <h3>Strengthen the Network</h3>
-                <p>By increasing access to Bitcoin education, we're building a decentralized, resilient, and informed network of future builders and thinkers.</p>
-            </div>
+    <section id="products" class="products">
+        <h2>Products</h2>
+        <p class="products-intro">We provide institutions the tools to lower electricity costs and become more energy efficient and sustainable, with the byproducts being added revenue and securing a global data network used for everything from economic justice, to preserving pasts, to fostering the arts.</p>
+        <div class="product-model">
+            <iframe src="models/vitrine-3d-dark.html" title="Interactive 3D model of the Dual-Zone Conservation Vitrine" loading="lazy"></iframe>
+            <p class="product-note">This is our patent-pending model. It can be customized per site requirements.</p>
         </div>
     </section>
 
     <section id="services" class="services">
-        <h2>What We Offer</h2>
+        <h2>Education Services</h2>
         <div class="services-container">
             <div class="service-item">
                 <div class="service-number">01</div>
@@ -683,6 +701,32 @@
         </div>
     </section>
 
+    <section id="mission">
+        <h2>Our Mission</h2>
+        <div class="mission-grid">
+            <div class="mission-card">
+                <h3>Educate the Educators</h3>
+                <p>Bitcoin is becoming an integrated technology across fields and careers, from the arts to energy. We provide full Bitcoin literacy to be prepared for coming cohorts.</p>
+            </div>
+            <div class="mission-card">
+                <h3>Curriculum Integration</h3>
+                <p>Our team were firsts to offer Bitcoin courses on US campuses. From years of experience teaching Bitcoin, experimenting with its applications, and supervising upper-level Bitcoin research, we can build curricula for any academic setting.</p>
+            </div>
+            <div class="mission-card">
+                <h3>Provide Opportunities</h3>
+                <p>We coordinate placement into Bitcoin internships, research fellowships, jobs, and careers across the US, and have done so more successfully than anyone else in the industry.</p>
+            </div>
+            <div class="mission-card">
+                <h3>Lower Electricity Costs w/Bitcoin Mining</h3>
+                <p>Bitcoin miners are electric heaters. We use them to provide custom solutions to cut your electricity costs, increase your use of renewables, and assist with financial sustainability.</p>
+            </div>
+            <div class="mission-card">
+                <h3>Strengthen the Network</h3>
+                <p>By increasing access to Bitcoin education, we're building a decentralized, resilient, and informed network of future builders and thinkers.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="stats">
         <div class="stats-grid">
             <div class="stat-item">
@@ -700,20 +744,6 @@
         </div>
     </section>
 
-    <section id="expertise" class="expertise">
-        <h2>Our Expertise</h2>
-        <div class="expertise-grid">
-            <div class="expertise-tag">Full Bitcoin Education</div>
-            <div class="expertise-tag">Heat and Energy Recapture</div>
-            <div class="expertise-tag">Bitcoin Studies Research</div>
-            <div class="expertise-tag">Institutional Consulting</div>
-            <div class="expertise-tag">Custom Freedom-tech products</div>
-            <div class="expertise-tag">AI & Bitcoin Integration</div>
-            <div class="expertise-tag">Secure, Localized Bitcoin Environments </div>
-            <div class="expertise-tag">Pedagogy & Assessment</div>
-        </div>
-    </section>
-
     <section id="contact" class="cta-section">
         <h2>Ready to Lead in<br>Bitcoin Education?</h2>
         <p>Whether you're a school looking to add Bitcoin to your curriculum or a university ready to pioneer the Bitcoin-AI convergence, we're here to help.</p>
@@ -726,9 +756,9 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="#mission">Mission</a>
+                <a href="#products">Products</a>
                 <a href="#services">Services</a>
-                <a href="#expertise">Expertise</a>
+                <a href="#mission">Who We Are</a>
                 <a href="mailto:Bitcoineducators21@gmail.com">Contact</a>
             </div>
             <p class="copyright">© 2026 Education21. Knowledge for the next generations.</p>

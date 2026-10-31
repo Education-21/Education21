@@ -593,6 +593,75 @@
             line-height: 1.7;
         }
 
+        /* ---------- Sub-categories and featured 3D models ---------- */
+        .subcat { margin-top: 4.5rem; scroll-margin-top: 6rem; }
+        .subcat .cat-head { margin-bottom: 1.5rem; }
+        .subcat-title { font-size: 1.9rem; line-height: 1.15; letter-spacing: -0.01em; }
+        .subcat > .lede { margin-bottom: 2.5rem; }
+
+        .feature {
+            display: grid;
+            grid-template-columns: minmax(300px, 400px) 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: stretch;
+        }
+        .feature-card { display: flex; }
+        .feature-card .card { flex: 1; }
+        .feature-model { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+        .feature-model iframe {
+            display: block;
+            width: 100%;
+            flex: 1;
+            min-height: 560px;
+            border: 1px solid rgba(247, 147, 26, 0.15);
+            border-radius: 8px;
+            background: #E3E8EA;
+        }
+        .feature-note { margin: 0; max-width: none; text-align: left; }
+
+        .partner-media { margin: 0 0 1.25rem; }
+        .partner-media img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 6px;
+            background: var(--dark);
+        }
+        .partner-media figcaption { display: none; }
+        .partner-media.no-img img { display: none; }
+        .partner-media.no-img figcaption {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 4 / 3;
+            border: 1px dashed var(--line);
+            border-radius: 6px;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        .card-link {
+            margin-top: 1.25rem;
+            color: var(--orange);
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+        .card-link:hover { text-decoration: underline; }
+
+        .coming-soon {
+            color: var(--gray);
+            border: 1px dashed var(--line);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .feature { grid-template-columns: 1fr; }
+            .feature-model iframe { min-height: 620px; }
+            .subcat-title { font-size: 1.6rem; }
+        }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 1020px) {
             .calc { grid-template-columns: 1fr; }
@@ -635,16 +704,16 @@
     <header>
         <a href="index.html" class="logo">Education21</a>
         <nav>
-            <a href="index.html#services">Services</a>
-            <a href="#institutions">Institutions</a>
-            <a href="#business">Business</a>
+            <a href="#heat-reuse">Heat Reuse</a>
+            <a href="#products">Our Products</a>
+            <a href="#partners">Partner&rsquo;s Products</a>
             <a href="#sizing">Sizing tool</a>
             <a href="mailto:hello@education21.io" class="cta-button">Request a study</a>
         </nav>
     </header>
 
     <main id="main">
-        <section class="hero">
+        <section class="hero" id="heat-reuse">
             <div class="wrap hero-inner">
                 <p class="eyebrow">Heat reuse &middot; Proof of work</p>
                 <h1>Buy the heat you already need. <em>Get the hashrate free.</em></h1>
@@ -669,59 +738,132 @@
             </div>
         </section>
 
-        <section class="band" id="institutions">
+        <section class="band" id="products">
             <div class="wrap">
                 <div class="cat-head">
                     <div>
                         <p class="eyebrow">Category 01</p>
-                        <h2>Educational institutions<br>and public sites</h2>
+                        <h2>Our products</h2>
                     </div>
-                    <span class="cat-range">10 kW &ndash; 1 MW thermal</span>
                 </div>
-                <p class="lede">Schools, universities, libraries, recreation centres, and municipal buildings share three traits that make them the strongest candidates in the entire market: a large existing electrical service, a year-round hot water demand, and a mandate to teach or demonstrate what they are doing. The heat pays for the equipment; the visibility pays for the programme.</p>
-                <div class="cards" data-category="institutions"></div>
+
+                <div class="subcat" id="institutions">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Sub-category</p>
+                            <h3 class="subcat-title">Educational institutions<br>and public sites</h3>
+                        </div>
+                        <span class="cat-range">10 kW &ndash; 1 MW thermal</span>
+                    </div>
+                    <p class="lede">Schools, universities, libraries, recreation centres, and municipal buildings share three traits that make them the strongest candidates in the entire market: a large existing electrical service, a year-round hot water demand, and a mandate to teach or demonstrate what they are doing. The heat pays for the equipment; the visibility pays for the programme.</p>
+                    <div class="feature">
+                        <div class="feature-card" id="vitrineCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/vitrine-3d.html" title="Interactive 3D model of the Dual-Zone Conservation Vitrine" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">This is our patent-pending model. It can be customized per site requirements.</p>
+                        </div>
+                    </div>
+                    <div class="cards" data-category="institutions"></div>
+                </div>
+
+                <div class="subcat" id="business">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Sub-category</p>
+                            <h3 class="subcat-title">Business solutions</h3>
+                        </div>
+                        <span class="cat-range">1.5 kW &ndash; 50 kW thermal</span>
+                    </div>
+                    <p class="lede">If your business already burns money on hot water or process heat every day of the year, that spend is the whole opportunity. Laundromats, breweries, salons, gyms, commercial kitchens, greenhouses, and unheated workshops all have the steady thermal load that makes the arithmetic work. Sporadic loads do not.</p>
+                    <div class="feature">
+                        <div class="feature-card" id="massageCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/massage-table-3d.html" title="Interactive 3D model of the Massage Miner" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="cards" data-category="business"></div>
+                </div>
             </div>
         </section>
 
-        <section class="band" id="business">
+        <section class="band" id="partners">
             <div class="wrap">
                 <div class="cat-head">
                     <div>
-                        <p class="eyebrow">Category 02</p>
-                        <h2>Small businesses</h2>
+                        <p class="eyebrow">Category 02 &middot; Partner&rsquo;s products</p>
+                        <h2>Manufacturing, Homes,<br>and Public Works</h2>
                     </div>
-                    <span class="cat-range">1.5 kW &ndash; 50 kW thermal</span>
-                </div>
-                <p class="lede">If your business already burns money on hot water or process heat every day of the year, that spend is the whole opportunity. Laundromats, breweries, salons, gyms, commercial kitchens, greenhouses, and unheated workshops all have the steady thermal load that makes the arithmetic work. Sporadic loads do not.</p>
-                <div class="cards" data-category="business"></div>
-            </div>
-        </section>
-
-        <section class="band" id="homes">
-            <div class="wrap">
-                <div class="cat-head">
-                    <div>
-                        <p class="eyebrow">Category 03</p>
-                        <h2>Homes and small offices</h2>
-                    </div>
-                    <span class="cat-range">300 W &ndash; 1.5 kW thermal</span>
                 </div>
                 <p class="lede">The retail end of the market: plug-in units that run on an ordinary 120&nbsp;V circuit and need no plumbing, no permit, and no facilities staff. Also the right place to start if you want a working unit in the room before you propose anything larger to a building committee.</p>
-                <div class="cards" data-category="homes"></div>
-            </div>
-        </section>
 
-        <section class="band" id="district">
-            <div class="wrap">
-                <div class="cat-head">
-                    <div>
-                        <p class="eyebrow">Category 04</p>
-                        <h2>Industrial and district scale</h2>
+                <div class="subcat" id="printing">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Manufacturing</p>
+                            <h3 class="subcat-title">3D printing</h3>
+                        </div>
+                        <span class="cat-range">From 140 W thermal</span>
                     </div>
-                    <span class="cat-range">500 kW &ndash; 10 MW thermal</span>
+                    <div class="cards">
+                        <article class="card partner-card">
+                            <div class="card-thermal" style="width:12%;background:var(--t1)"></div>
+                            <figure class="partner-media">
+                                <img src="https://www.proof-of-print.com/images/dryer-prototype/front-face.jpg" alt="Proof Of Print Bitcoin-mining filament dryer prototype, front view" loading="lazy" onerror="this.parentNode.classList.add('no-img')">
+                                <figcaption>Image coming soon</figcaption>
+                            </figure>
+                            <p class="card-vendor">Proof Of Print &middot; partner product</p>
+                            <h3>Bitcoin-Mining Filament Dryer</h3>
+                            <p class="card-desc">A standalone filament dryer whose heat comes from ASIC chips instead of a resistive element, so keeping spools dry also produces hashrate. Steady, low-temperature, continuous duty makes it the first product in Proof Of Print&rsquo;s line and the easiest place for a print shop to start.</p>
+                            <dl class="specs">
+                                <div class="spec"><dt>Thermal output</dt><dd class="hot">~478 BTU/hr</dd></div>
+                                <div class="spec"><dt>Electrical draw</dt><dd>140 W</dd></div>
+                                <div class="spec"><dt>Hashrate</dt><dd>6 TH/s</dd></div>
+                                <div class="spec"><dt>Capacity</dt><dd>2 spools</dd></div>
+                                <div class="spec"><dt>Status</dt><dd>Working prototype</dd></div>
+                            </dl>
+                            <a class="card-link" href="https://www.proof-of-print.com/" target="_blank" rel="noopener">proof-of-print.com &rarr;</a>
+                        </article>
+                        <article class="card partner-card">
+                            <div class="card-thermal" style="width:12%;background:var(--t1)"></div>
+                            <figure class="partner-media">
+                                <img src="https://www.proof-of-print.com/images/prototype/front-view-closed2.jpg" alt="Proof Of Print Bitcoin-mining 3D printer prototype, front view" loading="lazy" onerror="this.parentNode.classList.add('no-img')">
+                                <figcaption>Image coming soon</figcaption>
+                            </figure>
+                            <p class="card-vendor">Proof Of Print &middot; partner product</p>
+                            <h3>Bitcoin-Mining 3D Printer</h3>
+                            <p class="card-desc">A 3D printer whose heated bed is warmed by mining chips rather than a conventional heater, holding print temperature under standard Klipper control. This is the longer-term platform: print farms already run heat for long hours, and here that heat earns.</p>
+                            <dl class="specs">
+                                <div class="spec"><dt>Bed temperature</dt><dd class="hot">75 &deg;C demonstrated</dd></div>
+                                <div class="spec"><dt>Mining chips</dt><dd>4 &times; BM1362AK</dd></div>
+                                <div class="spec"><dt>Thermal control</dt><dd>Klipper integrated</dd></div>
+                                <div class="spec"><dt>Status</dt><dd>Working prototype</dd></div>
+                            </dl>
+                            <a class="card-link" href="https://www.proof-of-print.com/" target="_blank" rel="noopener">proof-of-print.com &rarr;</a>
+                        </article>
+                    </div>
                 </div>
-                <p class="lede">At megawatt scale the miner stops being an appliance and becomes a boiler. These are the deployments that have already been built and metered in Finland, British Columbia, and Manitoba, which makes them the most useful precedents to cite when a board asks whether anyone has actually done this.</p>
-                <div class="cards" data-category="district"></div>
+
+                <div class="subcat" id="homes">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Sub-category</p>
+                            <h3 class="subcat-title">Home solutions</h3>
+                        </div>
+                    </div>
+                    <p class="coming-soon">Coming soon.</p>
+                </div>
+
+                <div class="subcat" id="district">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Industrial and district scale</p>
+                            <h3 class="subcat-title">Public works</h3>
+                        </div>
+                        <span class="cat-range">500 kW &ndash; 10 MW thermal</span>
+                    </div>
+                    <p class="lede">At megawatt scale the miner stops being an appliance and becomes a boiler. These are the deployments that have already been built and metered in Finland, British Columbia, and Manitoba, which makes them the most useful precedents to cite when a board asks whether anyone has actually done this.</p>
+                    <div class="cards" data-category="district"></div>
+                </div>
             </div>
         </section>
 
@@ -813,33 +955,6 @@
             </div>
         </section>
 
-        <section class="band" id="reality">
-            <div class="wrap">
-                <p class="eyebrow">Before you propose this to anyone</p>
-                <h2>Where the argument is weak</h2>
-                <p class="lede">Any institutional buyer worth selling to will raise these four objections, and a vendor who has not raised them first has told you something about themselves. Here they are.</p>
-
-                <div class="reality">
-                    <div class="reality-item">
-                        <h3>A heat pump beats this on energy</h3>
-                        <p>Bitcoin heating has a coefficient of performance of 1.0, exactly like baseboard electric. A decent air-source heat pump delivers 2.5 to 4 units of heat per unit of electricity. Where a heat pump is viable, it wins on energy cost, and the mining revenue has to make up a gap it often cannot. The honest comparison is against <em>resistance</em> heat and against <em>gas</em>, not against the best available technology.</p>
-                    </div>
-                    <div class="reality-item">
-                        <h3>The revenue is volatile and trends down</h3>
-                        <p>Per-terahash revenue falls as network hashrate grows, and halves outright every four years at the subsidy halving. Model the heat as the product and the sats as a rebate of uncertain size. Any proposal whose payback depends on the price of Bitcoin going up is a speculation wearing an engineering costume.</p>
-                    </div>
-                    <div class="reality-item">
-                        <h3>Seasonal loads waste the hardware</h3>
-                        <p>The ASIC is the expensive part, and it only earns while it runs. A space-heating load in Broome County runs maybe five months a year; a domestic hot water load runs twelve. This is the single largest driver of payback period, and it is why water beats air almost every time.</p>
-                    </div>
-                    <div class="reality-item">
-                        <h3>Institutions have procurement, not preferences</h3>
-                        <p>Expect UL listing requirements, electrical inspection, noise limits in occupied space, IT and network security review, and in a public entity a competitive bid process. Budget more calendar time for approvals than for installation. On a SUNY campus, plan on the state fire marshal and campus IT both having standing.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="cta-band">
             <div class="wrap">
                 <h2>Start with a thermal load study</h2>
@@ -855,9 +970,10 @@
     <footer>
         <div class="footer-links">
             <a href="index.html">Home</a>
-            <a href="index.html#mission">Mission</a>
-            <a href="#institutions">Institutions</a>
-            <a href="#business">Business</a>
+            <a href="index.html#mission">Who We Are</a>
+            <a href="#heat-reuse">Heat Reuse</a>
+            <a href="#products">Our Products</a>
+            <a href="#partners">Partner&rsquo;s Products</a>
             <a href="#sizing">Sizing tool</a>
             <a href="mailto:hello@education21.io">Contact</a>
         </div>
@@ -890,7 +1006,8 @@
         category: 'institutions',
         w: 3000, miningW: 3000, th: 200, medium: 'immersion',
         desc: 'A museum-grade display case whose climate control is a dielectric-immersion ASIC. Conditions the object zone to conservation tolerances, exposes the working hardware behind the glass as the exhibit itself, and offsets its own operating cost. Designed for libraries, special collections, and lobby installations where the teaching value and the thermal load are the same line item.',
-        specs: [['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending']]
+        feature: 'vitrineCard',
+        specs: [['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending'], ['Est. model cost', '$7,000 or shared hashrate']]
       },
       {
         id: 'pool',
@@ -922,6 +1039,20 @@
       },
 
       /* ---- Small businesses ---- */
+      {
+        id: 'massage',
+        name: 'Massage Miner for Spas and Resorts',
+        vendor: 'Education21',
+        own: true,
+        category: 'business',
+        feature: 'massageCard',
+        noSizing: true,
+        w: 1215, miningW: 1215, th: 90, medium: 'water',
+        desc: 'A treatment table whose padding hides a closed loop of PEX tubing, warmed by a single water-cooled hashboard on the shelf below. The therapist sets the surface temperature by setting the miner\u2019s power target, so the hashrate comes from heat the spa already pays for.',
+        specs: [['Board', 'Single S21-class'], ['Efficiency', '13.5 J/TH'], ['Est. model cost', '$4,000 or shared hashrate'],
+                ['S19 option', '~30 TH/s at 24 J/TH'], ['S19 draw · heat', '720 W · ~2,457 BTU/hr'], ['S19 est. cost', '$2,000 or shared hashrate'],
+                ['Status', 'Working build']]
+      },
       {
         id: 'h1c-bank',
         name: 'Water Heater Bank',
@@ -1089,6 +1220,9 @@
         if (!host) return;
 
         PRODUCTS.filter(p => p.category === c.id).forEach(p => {
+          // Featured products render beside their 3D model instead of in the grid
+          const target = p.feature ? document.getElementById(p.feature) : host;
+          if (!target) return;
           const card = document.createElement('article');
           card.className = 'card';
 
@@ -1110,7 +1244,7 @@
               extra +
             '</dl>';
 
-          host.appendChild(card);
+          target.appendChild(card);
         });
       });
     })();
@@ -1122,7 +1256,7 @@
       CATEGORIES.forEach(c => {
         const group = document.createElement('optgroup');
         group.label = c.label;
-        PRODUCTS.filter(p => p.category === c.id).forEach(p => {
+        PRODUCTS.filter(p => p.category === c.id && !p.noSizing).forEach(p => {
           const opt = document.createElement('option');
           opt.value = p.id;
           opt.textContent = p.name + ' — ' + watts(p.w);
