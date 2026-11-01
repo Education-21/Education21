@@ -398,6 +398,8 @@ function setMode(next){
   sim.tank = 22; sim.hist = [];
   spots.forEach(function(s){ if (s.modal){ s.d = s.modal[mode]; s.v.set(s.pm[mode][0], s.pm[mode][1], s.pm[mode][2]); if (openSpot === s){ info.querySelector("p").textContent = s.d; } } });
   readControls();
+  // Let the page around this model update the matching product card
+  try { if (window.parent !== window) window.parent.postMessage({type: "e21-rig-mode", mode: mode}, "*"); } catch (e) {}
 }
 document.querySelectorAll("[data-mode]").forEach(function(b){ b.addEventListener("click", function(){ setMode(b.dataset.mode); }); });
 wattsEl.addEventListener("input", readControls); flowEl.addEventListener("input", readControls);
