@@ -906,6 +906,12 @@
                         </div>
                     </div>
                     <p class="coming-soon">Our partners turn Bitcoin miners into clean, electric heaters and dehumidifiers that you can plug into your regular outlets at home, in your garage, or in your office.</p>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="heaterCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/space-heater-3d.html" title="Interactive 3D model of the S9 and Slim21 space heaters" loading="lazy"></iframe>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="subcat" id="district">
@@ -1152,7 +1158,6 @@
         own: true,
         category: 'business',
         feature: 'massageCard',
-        noSizing: true,
         w: 1215, miningW: 1215, th: 90, medium: 'water',
         desc: 'A treatment table whose padding hides a closed loop of PEX tubing, warmed by a single water-cooled hashboard on the shelf below. The therapist sets the surface temperature by setting the miner\u2019s power target, so the hashrate comes from heat the spa already pays for.',
         specs: [['Board', 'Single S21-class'], ['Efficiency', '13.5 J/TH'], ['Est. model cost', '$4,000 or shared hashrate'],
@@ -1160,79 +1165,31 @@
                 ['Status', 'Working build']]
       },
       {
-        id: 'h1c-bank',
-        name: 'Water Heater Bank',
-        vendor: 'Superheat H1C (multiple)',
-        category: 'business',
-        w: 12000, miningW: 12000, th: 360, medium: 'water',
-        desc: 'Several tank units plumbed in parallel to cover a laundromat, salon, or small hotel. Each replaces the resistive elements in a 50-gallon tank with ASICs; the tank itself provides thermal storage, which smooths the mismatch between when heat is made and when it is drawn.',
-        specs: [['Per unit', '50 gal, ~$2,999'], ['Heat capture', 'Vendor claims >99%'], ['Noise', '~38 dB(A)']]
-      },
-      {
-        id: 'hydronic-shop',
-        name: 'Hydronic Process Heat Skid',
-        vendor: 'Softwarm-class',
-        category: 'business',
-        w: 30000, miningW: 30000, th: 1900, medium: 'immersion',
-        desc: 'A skid-mounted immersion tank feeding a glycol loop for brewery mash water, commercial kitchen sanitation, or industrial washdown. The concrete industry precedent — a 2,500-gallon tank held at temperature on mining heat alone — is the closest analogue to most process loads.',
-        specs: [['Cooling', 'Single-phase immersion'], ['Loop', 'Glycol, plate HX'], ['Duty', 'Continuous']]
-      },
-      {
-        id: 'greenhouse-sm',
-        name: 'Greenhouse Hydronic Module',
-        vendor: 'Canaan liquid-cooled',
-        category: 'business',
-        w: 45000, miningW: 45000, th: 2900, medium: 'water',
-        desc: 'Liquid-cooled servers on a closed loop under the benches, giving controlled-environment growers the steady low-grade baseload heat that winter production needs. Canaan\'s Manitoba proof-of-concept reports roughly 90% of server electricity recovered as usable heat above 75 °C.',
-        specs: [['Water out', '>75 °C'], ['Recovery', '~90% of input'], ['Precedent', 'Bitforest, Manitoba']]
-      },
-      {
         id: 'shop-array',
         name: 'Workshop Air Heater Array',
-        vendor: 'D-Central S9 Space Heater Edition',
-        category: 'business',
-        w: 2400, miningW: 2400, th: 34, medium: 'air',
+        vendor: 'Space Heaters',
+        category: 'homes',
+        feature: 'heaterCard',
+        w: 800, miningW: 800, th: 11.3, medium: 'air',
         desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
-        specs: [['Per unit', '~$235 CAD'], ['Per unit output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
+        specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']],
+        // The 3D model's S9 / Slim21 switch swaps these values into the card
+        variants: {
+          s9: {
+            w: 800, miningW: 800, th: 11.3,
+            desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
+            specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
+          },
+          slim21: {
+            w: 1200, miningW: 1200, th: 80,
+            desc: 'An Antminer S21 Pro chassis rebuilt around a single hashboard, powered by a repurposed S9 power supply, fan-cooled, and run by a Loki-chip control board. About seven times the hashrate of an S9 heater for one and a half times the power, still on an ordinary 120 V circuit.',
+            specs: [['Model', 'Slim21'], ['Build', 'S21 Pro chassis, single hashboard'], ['Power supply', 'S9 (APW3)'], ['Control board', 'Loki chip'],
+                    ['Efficiency', '~15 J/TH'], ['Circuit', '120 V, ~10 A'], ['Est. price', '$999']]
+          }
+        }
       },
 
       /* ---- Homes and small offices ---- */
-      {
-        id: 'maxi',
-        name: 'Heatbit Maxi',
-        vendor: 'Heatbit',
-        category: 'homes',
-        w: 1500, miningW: 1500, th: 40, medium: 'air',
-        desc: 'A 1,500 W plug-in room heater in which every watt is doing computation rather than passing through a coil. Also filters air. The most straightforward way to have a working unit in the room when you make the case for something bigger.',
-        specs: [['Price', '~$1,499'], ['Output', '~5,118 BTU/hr'], ['Mining share', '100% of draw']]
-      },
-      {
-        id: 'trio',
-        name: 'Heatbit Trio',
-        vendor: 'Heatbit',
-        category: 'homes',
-        w: 1500, miningW: 400, th: 10, medium: 'air',
-        desc: 'A hybrid: 400 W of mining runs continuously, with 1,100 W of conventional coil filling in on cold days. Cheaper than an all-mining unit because ASICs are the expensive component, but only a quarter of the draw earns anything. Roughly 40 dB.',
-        specs: [['Mining heat', '1,365 BTU/hr'], ['Total output', '~5,118 BTU/hr'], ['Noise', '~40 dB']]
-      },
-      {
-        id: 'h1c',
-        name: 'Superheat H1C',
-        vendor: 'Superheat',
-        category: 'homes',
-        w: 4000, miningW: 4000, th: 120, medium: 'water',
-        desc: 'A 50-gallon tank water heater with ASICs in place of the resistive elements. Water heating is roughly a fifth of residential energy use and, unlike space heating, it never goes out of season — which is why this form factor has the best duty cycle of anything on the page.',
-        specs: [['Price', '$2,999 founding batch'], ['Ships', 'Q4 2026 (est.)'], ['Noise', '38.4 dB(A) claimed']]
-      },
-      {
-        id: 'panel',
-        name: 'Bitaxe / NerdQaxe Panel',
-        vendor: 'Open source',
-        category: 'homes',
-        w: 100, miningW: 100, th: 5, medium: 'air',
-        desc: 'Open-source solo-mining boards producing a genuinely trivial amount of heat. Included because they are the cheapest way to put working, inspectable hardware in a classroom, and because solo templates let students watch block construction rather than a pool dashboard.',
-        specs: [['Output', '~341 BTU/hr'], ['Mode', 'Solo capable'], ['Role', 'Demonstration']]
-      },
 
       /* ---- Industrial and district ---- */
       {
@@ -1344,7 +1301,6 @@
     (function buildCards() {
       CATEGORIES.forEach(c => {
         const host = document.querySelector('.cards[data-category="' + c.id + '"]');
-        if (!host) return;
 
         PRODUCTS.filter(p => p.category === c.id).forEach(p => {
           // Featured products render beside their 3D model instead of in the grid
@@ -1358,19 +1314,21 @@
       });
     })();
 
-    /* ---------- teaching rig card follows the 3D model's Lab / Classroom switch ---------- */
-    (function rigVariants() {
-      const rig = PRODUCTS.find(p => p.id === 'teaching-rig');
-      const slot = document.getElementById('rigCard');
-      const frame = document.querySelector('iframe[src*="teaching-rig-3d"]');
-      if (!rig || !rig.variants || !slot || !frame) return;
-      const color = (CATEGORIES.find(c => c.id === rig.category) || {}).color;
-      window.addEventListener('message', e => {
-        if (e.source !== frame.contentWindow || !e.data || e.data.type !== 'e21-rig-mode') return;
-        const v = rig.variants[e.data.mode];
-        if (!v) return;
-        const card = slot.querySelector('.card');
-        if (card) card.innerHTML = cardHTML(Object.assign({}, rig, v), color);
+    /* ---------- cards follow their 3D model's version switch (teaching rig, space heaters) ---------- */
+    (function variantCards() {
+      PRODUCTS.filter(p => p.variants && p.feature).forEach(p => {
+        const slot = document.getElementById(p.feature);
+        const feature = slot && slot.closest('.feature');
+        const frame = feature && feature.querySelector('iframe');
+        if (!frame) return;
+        const color = (CATEGORIES.find(c => c.id === p.category) || {}).color;
+        window.addEventListener('message', e => {
+          if (e.source !== frame.contentWindow || !e.data) return;
+          if (e.data.type !== 'e21-variant' && e.data.type !== 'e21-rig-mode') return;
+          const v = p.variants[e.data.mode];
+          const card = slot.querySelector('.card');
+          if (v && card) card.innerHTML = cardHTML(Object.assign({}, p, v), color);
+        });
       });
     })();
 
