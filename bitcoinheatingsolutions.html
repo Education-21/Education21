@@ -462,6 +462,48 @@
 
         .readout { display: grid; gap: 1.5rem; }
 
+        /* Vitrine energy model */
+        .vitrine-inputs {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed rgba(247, 147, 26, 0.25);
+        }
+        .vi-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        .field label output { color: var(--orange); float: right; letter-spacing: 0; }
+        .field input[type="range"] {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            accent-color: var(--orange);
+        }
+        .vi-hint { font-size: 0.72rem; color: var(--gray); margin-top: 0.4rem; line-height: 1.5; }
+        .vi-break {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem 1.5rem;
+            background: var(--accent);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            margin: 0;
+        }
+        .vi-break div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.82rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 0.4rem; }
+        .vi-break dt { color: var(--gray); }
+        .vi-break dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+        .vi-note {
+            margin-top: 1.25rem;
+            border-left: 2px solid var(--orange);
+            padding-left: 1.25rem;
+        }
+        .vi-note p { font-size: 0.8rem; color: var(--gray); line-height: 1.7; margin-bottom: 0.75rem; max-width: 72ch; }
+        .vi-note strong { color: var(--light); font-weight: 500; }
+
         .readout-primary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -880,7 +922,7 @@
                                 <label for="qty">Quantity</label>
                                 <input type="number" id="qty" value="1" min="1" step="1">
                             </div>
-                            <div class="field">
+                            <div class="field" id="hoursField">
                                 <label for="hours">Hours per day</label>
                                 <input type="number" id="hours" value="24" min="1" max="24" step="1">
                             </div>
@@ -896,13 +938,55 @@
                             </div>
                         </div>
 
+                        <div class="vitrine-inputs" id="vitrineInputs" hidden>
+                            <p class="vi-title">Vitrine energy model</p>
+                            <div class="field">
+                                <label for="vPower">Miner power <output id="vPowerOut" for="vPower">70 W</output></label>
+                                <input type="range" id="vPower" min="35" max="140" step="5" value="70">
+                                <p class="vi-hint" id="vPowerHint">Stock setting: 4.8 TH/s, the most efficient point.</p>
+                            </div>
+                            <div class="field">
+                                <label for="vSun">Placement</label>
+                                <select id="vSun">
+                                    <option value="1.8">Full sun, outdoors or sunroom (max potential)</option>
+                                    <option value="0.9">Bright atrium or window, part sun</option>
+                                    <option value="0.05">Indoor gallery lighting</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="vSolar">Solar yield (kWh/day)</label>
+                                    <input type="number" id="vSolar" value="1.8" min="0" step="0.1">
+                                </div>
+                                <div class="field">
+                                    <label for="vSunHours">Sun hours / day</label>
+                                    <input type="number" id="vSunHours" value="10" min="0" max="16" step="1">
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label for="vFan">Fan + controls (W)</label>
+                                    <input type="number" id="vFan" value="5" min="0" step="1">
+                                </div>
+                                <div class="field">
+                                    <label for="vBatt">Battery (kWh)</label>
+                                    <input type="number" id="vBatt" value="1.2" min="0" step="0.1">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="vEff">Battery round-trip efficiency (%)</label>
+                                <input type="number" id="vEff" value="90" min="50" max="100" step="1">
+                            </div>
+                        </div>
+
                         <div class="assumption">
                             <div class="field-row">
                                 <div class="field">
                                     <label for="hashprice">Sats / TH / day</label>
                                     <input type="number" id="hashprice" value="50" min="0" step="1">
                                 </div>
-                                <div class="field">
+                                <div class="field" id="copField">
                                     <label for="cop">Heat pump COP (see note)</label>
                                     <input type="number" id="cop" value="3.0" min="1" step="0.1">
                                 </div>
@@ -946,6 +1030,15 @@
                             <tbody id="compareBody"></tbody>
                         </table>
                         <p class="fineprint" style="margin:0; text-align:left;" id="verdict"></p>
+                        <div class="vitrine-readout" id="vitrineReadout" hidden>
+                            <dl class="vi-break" id="vitrineBreakdown"></dl>
+                            <div class="vi-note">
+                                <p><strong>When can an object sit in the sun?</strong> Only light-stable materials belong in a sunlit vitrine: metals (coins included), stone, ceramics, and most glass. Paper, manuscripts, textiles, photographs, dyed or painted surfaces, and other organics fade and embrittle under light; conservation practice keeps them to roughly 50&ndash;200 lux, a small fraction of daylight, so they need an indoor placement where the case runs mostly on grid power.</p>
+                                <p><strong>Mitigating UV.</strong> Specify UV-filtering laminated glazing that blocks wavelengths below about 380&nbsp;nm, since ultraviolet does the fastest damage and carries no useful light. The semi-transparent PV cells also cut visible light reaching the object.</p>
+                                <p><strong>Heat in full sun.</strong> Sunlight through the glass warms the case on its own, so in strong sun the controller should throttle the miner and let the plenum carry heat out rather than add more.</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1000,28 +1093,14 @@
         vendor: 'Education21',
         own: true,
         category: 'institutions',
-        w: 3000, miningW: 3000, th: 200, medium: 'immersion',
+        w: 70, miningW: 70, th: 4.8, medium: 'immersion',
         desc: 'A museum-grade display case that is climate controlled by dielectric-immersion ASICs and thermal flooring. The solar chips integrated into the vitrine offset operating costs. Designed for museums, galleries, libraries, special collections, lobby installations and wherever else artifacts and delicate objects are presented.',
         feature: 'vitrineCard',
-        specs: [['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending'], ['Est. model cost', '$7,000 or shared hashrate']]
-      },
-      {
-        id: 'pool',
-        name: 'Aquatics and Pool Heating Loop',
-        vendor: 'MintGreen-class digital boiler',
-        category: 'institutions',
-        w: 250000, miningW: 250000, th: 16000, medium: 'water',
-        desc: 'Immersion-cooled hash boards feeding a plate heat exchanger on the pool circulation loop. A public pool is close to the ideal load: enormous, thermally forgiving, and running twelve months a year. MintGreen has run exactly this configuration on a municipal pool in British Columbia.',
-        specs: [['Delivery temp', '60–75 °C'], ['Duty', 'Year-round'], ['Precedent', 'North Vancouver, BC']]
-      },
-      {
-        id: 'campus-dhw',
-        name: 'Campus Domestic Hot Water Preheat',
-        vendor: 'Exergy / Softwarm-class',
-        category: 'institutions',
-        w: 60000, miningW: 60000, th: 3800, medium: 'water',
-        desc: 'Sits upstream of existing water heaters in a dormitory, gym, or dining hall and raises incoming mains temperature, so the building keeps its conventional plant as backup and the retrofit stays reversible. The reversibility is usually what gets it past a facilities committee.',
-        specs: [['Integration', 'Preheat, in series'], ['Backup', 'Existing plant retained'], ['Duty', 'Year-round']]
+        specs: [['Board', '4× BM1370 (S21 Pro chips), 12 V DC'], ['Stock setting', '4.8 TH/s · ~70 W · ~14.5 J/TH'],
+                ['Max (overclocked)', '8.1 TH/s · 140 W · ~17 J/TH'],
+                ['Solar output (max)', '~1.8 kWh/day in full sun'], ['Solar offset (max)', '~90% of stock load after battery losses'],
+                ['Sunlight', 'Light-stable objects only; UV-filtered glass'],
+                ['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending'], ['Est. model cost', '$5,500 or shared hashrate']]
       },
       {
         id: 'teaching-rig',
@@ -1155,7 +1234,7 @@
     ];
 
     const CATEGORIES = [
-      { id: 'institutions', label: 'Educational institutions and public sites', lo: 10000,  hi: 1000000,  color: 'var(--t3)' },
+      { id: 'institutions', label: 'Educational institutions and public sites', lo: 100,    hi: 1500,     color: 'var(--t3)' },
       { id: 'business',     label: 'Business solutions',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
       { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true },
       { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 3000,     color: 'var(--t1)' },
@@ -1173,7 +1252,7 @@
                     : w >= 1000 ? (w / 1000) + ' kW'
                     : w + ' W';
 
-    const money = n => '$' + Math.round(n).toLocaleString('en-US');
+    const money = n => (Math.round(n) < 0 ? '\u2212$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US');
 
     const compact = n => {
       if (n >= 1000000) return (n / 1000000).toFixed(n >= 10000000 ? 0 : 2) + 'M';
@@ -1263,14 +1342,137 @@
         sel.appendChild(group);
       });
 
-      sel.value = 'campus-dhw';
+      sel.value = 'vitrine';
 
-      const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'cop', 'btcprice'];
+      const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'cop', 'btcprice',
+                   'vPower', 'vSun', 'vSolar', 'vSunHours', 'vFan', 'vBatt', 'vEff'];
       const val = id => parseFloat(document.getElementById(id).value) || 0;
+
+      /* ---- Vitrine energy model ----
+         Hashrate vs. power for the 4x BM1370 board, interpolated between
+         published points: stock 4.8 TH/s at ~70 W, ~6.2 TH/s at ~100 W,
+         8.1 TH/s at 140 W (overclocked). Below stock it scales at ~14 J/TH. */
+      const VITRINE_CURVE = [[35, 2.5], [70, 4.8], [100, 6.2], [140, 8.1]];
+      function vitrineTH(w) {
+        for (let i = 1; i < VITRINE_CURVE.length; i++) {
+          const [w0, t0] = VITRINE_CURVE[i - 1], [w1, t1] = VITRINE_CURVE[i];
+          if (w <= w1) return t0 + (t1 - t0) * (w - w0) / (w1 - w0);
+        }
+        return VITRINE_CURVE[VITRINE_CURVE.length - 1][1];
+      }
+      const kwh = n => (Math.round(n * 100) / 100).toFixed(2) + ' kWh';
+
+      const sunSel = document.getElementById('vSun');
+      const solarIn = document.getElementById('vSolar');
+      sunSel.addEventListener('change', () => { if (sunSel.value !== 'custom') solarIn.value = sunSel.value; });
+      solarIn.addEventListener('input', () => {
+        const match = Array.from(sunSel.options).find(o => o.value === solarIn.value);
+        sunSel.value = match ? match.value : 'custom';
+      });
+
+      let lastUnit = null;
+      function recalcVitrine(p) {
+        const qty = Math.max(1, val('qty'));
+        const days = Math.max(0, val('days'));
+        const rate = val('rate');
+        const satsPerThDay = val('hashprice');
+        const btc = Math.max(1, val('btcprice'));
+
+        const minerW = Math.min(140, Math.max(35, val('vPower')));
+        const th = vitrineTH(minerW);
+        const auxW = Math.max(0, val('vFan'));
+        const loadW = minerW + auxW;                       // per vitrine
+        const solar = Math.max(0, val('vSolar'));         // kWh/day per vitrine
+        const sunH = Math.min(16, Math.max(0, val('vSunHours')));
+        const batt = Math.max(0, val('vBatt'));
+        const eff = Math.min(100, Math.max(50, val('vEff'))) / 100;
+        const CC = 0.95;                                  // charge-controller efficiency
+        const DOD = 0.9;                                  // usable share of battery capacity
+
+        document.getElementById('vPowerOut').textContent = minerW + ' W';
+        document.getElementById('vPowerHint').textContent =
+          minerW < 70 ? 'Underclocked: ' + th.toFixed(1) + ' TH/s, less heat, best efficiency.'
+          : minerW === 70 ? 'Stock setting: 4.8 TH/s, the most efficient point.'
+          : 'Overclocked: ' + th.toFixed(1) + ' TH/s. Needs the vitrine\u2019s liquid cooling and a larger 12 V supply.';
+
+        // Daily energy balance for one vitrine
+        const loadDay = loadW * 24 / 1000;
+        const loadSun = loadW * sunH / 1000;
+        const loadNight = loadDay - loadSun;
+        const solarUsable = solar * CC;
+        const direct = Math.min(solarUsable, loadSun);
+        const surplus = solarUsable - direct;
+        const stored = Math.min(surplus, batt * DOD);
+        const fromBatt = Math.min(stored * eff, loadNight);
+        const unused = surplus - stored;
+        const grid = loadDay - direct - fromBatt;
+        const offset = loadDay > 0 ? (direct + fromBatt) / loadDay : 0;
+
+        // Season totals, all vitrines
+        const gridKWh = grid * days * qty;
+        const gridCost = gridKWh * rate;
+        const loadKWh = loadDay * days * qty;
+        const sats = th * qty * satsPerThDay * days;
+        const satsValue = (sats / 100000000) * btc;
+        const net = gridCost - satsValue;
+        const heaterKWh = minerW * 24 / 1000 * days * qty;   // same heat from a resistance element
+        const heaterCost = heaterKWh * rate;
+
+        document.getElementById('outHeat').textContent = compact(minerW * qty * BTU_PER_W);
+        document.getElementById('outSats').textContent = compact(sats);
+        document.getElementById('outNet').textContent = money(net);
+
+        const rows = [
+          { name: 'Vitrine, solar + battery' + (qty > 1 ? ' ×' + qty : ''), kWh: gridKWh, cost: gridCost, credit: satsValue, net: net },
+          { name: 'Vitrine, grid only', kWh: loadKWh, cost: loadKWh * rate, credit: satsValue, net: loadKWh * rate - satsValue },
+          { name: 'Resistance heater, same heat', kWh: heaterKWh, cost: heaterCost, credit: 0, net: heaterCost }
+        ];
+        const best = Math.min.apply(null, rows.map(r => r.net));
+        document.getElementById('compareBody').innerHTML = rows.map(r =>
+          '<tr' + (Math.abs(r.net - best) < 0.01 ? ' class="winner"' : '') + '>' +
+            '<th scope="row">' + r.name + '</th>' +
+            '<td>' + (Math.round(r.kWh * 10) / 10).toLocaleString('en-US') + '</td>' +
+            '<td>' + money(r.cost) + '</td>' +
+            '<td>' + (r.credit ? money(r.credit) : '—') + '</td>' +
+            '<td>' + money(r.net) + '</td>' +
+          '</tr>'
+        ).join('');
+
+        const items = [
+          ['Hashrate', th.toFixed(1) + ' TH/s'],
+          ['Daily load (miner + fan)', kwh(loadDay)],
+          ['Solar used directly', kwh(direct)],
+          ['Delivered from battery', kwh(fromBatt)],
+          ['Drawn from grid', kwh(grid)],
+          ['Solar left unused', kwh(unused)],
+          ['Solar offset', Math.round(offset * 100) + '%']
+        ];
+        document.getElementById('vitrineBreakdown').innerHTML = items.map(i =>
+          '<div><dt>' + i[0] + '</dt><dd>' + i[1] + '</dd></div>').join('');
+
+        let v = 'Per vitrine per day: ' + kwh(loadDay) + ' needed, ' + Math.round(offset * 100) + '% covered by the glass. ';
+        if (unused > 0.05 && fromBatt + 0.005 < loadNight) v += 'A larger battery would capture the ' + kwh(unused) + ' of solar going unused. ';
+        else if (unused > 0.05) v += 'There is spare solar: the miner could run harder in daylight to use the ' + kwh(unused) + ' left over. ';
+        else if (grid > 0.05) v += 'The grid covers the remaining ' + kwh(grid) + ' a day. ';
+        if (solar < 0.2) v += 'Indoors, the glass contributes almost nothing and the case runs on grid power.';
+        document.getElementById('verdict').textContent = v;
+      }
 
       function recalc() {
         const p = PRODUCTS.find(x => x.id === sel.value);
         if (!p) return;
+
+        const isVitrine = p.id === 'vitrine';
+        document.getElementById('vitrineInputs').hidden = !isVitrine;
+        document.getElementById('vitrineReadout').hidden = !isVitrine;
+        document.getElementById('hoursField').hidden = isVitrine;
+        document.getElementById('copField').hidden = isVitrine;
+        if (p.id !== lastUnit) {
+          // The vitrine runs year-round; heating units default to a season
+          document.getElementById('days').value = isVitrine ? 365 : 180;
+          lastUnit = p.id;
+        }
+        if (isVitrine) { recalcVitrine(p); return; }
 
         const qty = Math.max(1, val('qty'));
         const hours = Math.min(24, Math.max(0, val('hours')));
