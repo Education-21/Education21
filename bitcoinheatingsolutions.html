@@ -659,6 +659,8 @@
             align-items: stretch;
         }
         .feature-card { display: flex; }
+        .feature-next { margin-top: 2.5rem; }
+        .cards:empty { display: none; }
         .feature-card .card { flex: 1; }
         .feature-model { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
         .feature-model iframe {
@@ -808,6 +810,12 @@
                         </div>
                     </div>
                     <div class="cards" data-category="institutions"></div>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="rigCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/teaching-rig-3d.html" title="Interactive 3D model of the Instrumented Teaching Rig" loading="lazy"></iframe>
+                        </div>
+                    </div>
                 <div class="subcat" id="business">
                     <div class="cat-head">
                         <div>
@@ -1104,6 +1112,7 @@
       },
       {
         id: 'teaching-rig',
+        feature: 'rigCard',
         name: 'Instrumented Teaching Rig',
         vendor: 'Education21',
         own: true,
@@ -1309,7 +1318,7 @@
 
           card.innerHTML =
             '<div class="card-thermal" style="width:' + Math.max(12, pos(p.w)) + '%;background:' + c.color + '"></div>' +
-            '<p class="card-vendor' + (p.own ? ' own' : '') + '">' + (p.own ? 'Education21 &middot; own product' : p.vendor) + '</p>' +
+            (p.own ? '' : '<p class="card-vendor">' + p.vendor + '</p>') +
             '<h3>' + p.name + '</h3>' +
             '<p class="card-desc">' + p.desc + '</p>' +
             '<dl class="specs">' +
