@@ -1118,8 +1118,22 @@
         own: true,
         category: 'institutions',
         w: 1200, miningW: 1200, th: 80, medium: 'water',
+        // The 3D model's Lab / Classroom switch swaps these values into the card
+        variants: {
+          lab: {
+            w: 1200, miningW: 1200, th: 80,
+            specs: [['Version', 'Lab'], ['Board', 'Single S21-class hashboard'], ['Efficiency', '~15 J/TH'],
+                    ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+          },
+          class: {
+            w: 140, miningW: 140, th: 8.1,
+            specs: [['Version', 'Classroom'], ['Board', '4\u00d7 BM1370 (S21 Pro chips), 12 V DC'], ['Stock setting', '4.8 TH/s \u00b7 ~70 W \u00b7 ~14.5 J/TH'],
+                    ['Max (overclocked)', '8.1 TH/s \u00b7 140 W \u00b7 ~17 J/TH'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+          }
+        },
         desc: 'A bench-scale hydronic loop with logged inlet and outlet temperatures, flow rate, power draw, and pool share, wired to a dashboard students can query. Built to teach the first law of thermodynamics and proof-of-work from the same apparatus. It&rsquo;s also perfect for teaching the full open-source mining stack of the <a href="https://www.256foundation.org/projects" target="_blank" rel="noopener">256 Foundation</a>. Ships with lab exercises and a marking rubric.',
-        specs: [['Footprint', 'Benchtop'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+        specs: [['Version', 'Lab'], ['Board', 'Single S21-class hashboard'], ['Efficiency', '~15 J/TH'],
+                ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
       },
 
       /* ---- Small businesses ---- */
@@ -1299,6 +1313,26 @@
     })();
 
     /* ---------- product cards ---------- */
+    const thText = th => th ? (th < 100 ? String(Math.round(th * 10) / 10) : compact(th)) + ' TH/s' : '\u2014';
+
+    function cardHTML(p, color) {
+      const btu = Math.round(p.miningW * BTU_PER_W);
+      const extra = p.specs.map(s =>
+        '<div class="spec"><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'
+      ).join('');
+      return '<div class="card-thermal" style="width:' + Math.max(12, pos(p.w)) + '%;background:' + color + '"></div>' +
+        (p.own ? '' : '<p class="card-vendor">' + p.vendor + '</p>') +
+        '<h3>' + p.name + '</h3>' +
+        '<p class="card-desc">' + p.desc + '</p>' +
+        '<dl class="specs">' +
+          '<div class="spec"><dt>Thermal output</dt><dd class="hot">' + compact(btu) + ' BTU/hr</dd></div>' +
+          '<div class="spec"><dt>Electrical draw</dt><dd>' + watts(p.w) + '</dd></div>' +
+          '<div class="spec"><dt>Hashrate</dt><dd>' + thText(p.th) + '</dd></div>' +
+          '<div class="spec"><dt>Heat medium</dt><dd>' + p.medium + '</dd></div>' +
+          extra +
+        '</dl>';
+    }
+
     (function buildCards() {
       CATEGORIES.forEach(c => {
         const host = document.querySelector('.cards[data-category="' + c.id + '"]');
@@ -1310,27 +1344,25 @@
           if (!target) return;
           const card = document.createElement('article');
           card.className = 'card';
-
-          const btu = Math.round(p.miningW * BTU_PER_W);
-          const extra = p.specs.map(s =>
-            '<div class="spec"><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'
-          ).join('');
-
-          card.innerHTML =
-            '<div class="card-thermal" style="width:' + Math.max(12, pos(p.w)) + '%;background:' + c.color + '"></div>' +
-            (p.own ? '' : '<p class="card-vendor">' + p.vendor + '</p>') +
-            '<h3>' + p.name + '</h3>' +
-            '<p class="card-desc">' + p.desc + '</p>' +
-            '<dl class="specs">' +
-              '<div class="spec"><dt>Thermal output</dt><dd class="hot">' + compact(btu) + ' BTU/hr</dd></div>' +
-              '<div class="spec"><dt>Electrical draw</dt><dd>' + watts(p.w) + '</dd></div>' +
-              '<div class="spec"><dt>Hashrate</dt><dd>' + (p.th ? compact(p.th) + ' TH/s' : '—') + '</dd></div>' +
-              '<div class="spec"><dt>Heat medium</dt><dd>' + p.medium + '</dd></div>' +
-              extra +
-            '</dl>';
-
+          card.innerHTML = cardHTML(p, c.color);
           target.appendChild(card);
         });
+      });
+    })();
+
+    /* ---------- teaching rig card follows the 3D model's Lab / Classroom switch ---------- */
+    (function rigVariants() {
+      const rig = PRODUCTS.find(p => p.id === 'teaching-rig');
+      const slot = document.getElementById('rigCard');
+      const frame = document.querySelector('iframe[src*="teaching-rig-3d"]');
+      if (!rig || !rig.variants || !slot || !frame) return;
+      const color = (CATEGORIES.find(c => c.id === rig.category) || {}).color;
+      window.addEventListener('message', e => {
+        if (e.source !== frame.contentWindow || !e.data || e.data.type !== 'e21-rig-mode') return;
+        const v = rig.variants[e.data.mode];
+        if (!v) return;
+        const card = slot.querySelector('.card');
+        if (card) card.innerHTML = cardHTML(Object.assign({}, rig, v), color);
       });
     })();
 
