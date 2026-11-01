@@ -728,7 +728,7 @@
             <div class="wrap hero-inner">
                 <p class="eyebrow">Heat reuse &middot; Proof of work</p>
                 <h1>Buy the heat you already need. <em>Get the hashrate free.</em></h1>
-                <p class="lede">A Bitcoin heater is not a gadget with a heater attached. It is a heater whose resistive element has been replaced by a computer, and the heat arrives either way. We specify, size, and commission these systems for institutions and businesses across the Northeast.</p>
+                <p class="lede">Hashrate heating is a form of compute heating. Like many of your tools, fixtures, appliances and home conveniences, Bitcoin miners convert electricity into heat. As with compute heating, this computing power provides revenue with clean, electric heating: it double uses the electricity you're already using and thus offsets or rebates your costs for that electricity. We specify, size, and commission these products and systems for institutions and businesses.</p>
 
                 <div class="identity">
                     <span class="identity-term">1 watt in</span>
@@ -736,7 +736,7 @@
                     <span class="identity-term">3.412 BTU/hr out</span>
                     <span class="identity-eq" aria-hidden="true">+</span>
                     <span class="identity-term">hashrate</span>
-                    <p class="identity-note">Electric resistance heating converts essentially all input energy to heat. So does an ASIC. Thermodynamically the two are the same appliance — but only one of them pays you for the privilege. Everything on this page follows from that.</p>
+                    <p class="identity-note">Electric resistance heating converts essentially all input energy to heat. Bitcoin miners function the same way, except that their ASICs amplify heat output and generate cash in form of BTC (Bitcoin). Thermodynamically the non-ASIC resistive heater and the Bitcoin heater are the same appliance — but only one of them pays you for the privilege. Bitcoin heating's advantage over other forms of compute heating is that you do not need to sell the computing power to any third party: the Bitcoin mining brings cash directly into your wallet. Everything on this page follows from that.</p>
                 </div>
 
                 <div class="scale-shell">
@@ -1156,9 +1156,10 @@
 
     const CATEGORIES = [
       { id: 'institutions', label: 'Educational institutions and public sites', lo: 10000,  hi: 1000000,  color: 'var(--t3)' },
-      { id: 'business',     label: 'Small businesses',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
-      { id: 'homes',        label: 'Homes and small offices',                    lo: 300,    hi: 1500,     color: 'var(--t1)' },
-      { id: 'district',     label: 'Industrial and district scale',              lo: 500000, hi: 10000000, color: 'var(--t4)' }
+      { id: 'business',     label: 'Business solutions',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
+      { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true },
+      { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 1500,     color: 'var(--t1)' },
+      { id: 'district',     label: 'Public works and Agriculture',              lo: 500000, hi: 10000000, color: 'var(--t4)' }
     ];
 
     /* ---------- helpers ---------- */
@@ -1250,6 +1251,7 @@
       const sel = document.getElementById('unit');
 
       CATEGORIES.forEach(c => {
+        if (c.scaleOnly) return;
         const group = document.createElement('optgroup');
         group.label = c.label;
         PRODUCTS.filter(p => p.category === c.id && !p.noSizing).forEach(p => {
