@@ -740,11 +740,11 @@
                 </div>
 
                 <div class="scale-shell">
-                    <p class="eyebrow">Sorted by thermal output, not by product family</p>
+                    <p class="eyebrow">Sorted by estimated thermal outputs per product or solution</p>
                     <div class="scale-axis" role="presentation"></div>
                     <div class="scale-ticks" id="scaleTicks" aria-hidden="true"></div>
                     <div class="scale-rows" id="scaleRows"></div>
-                    <p class="scale-caption">Logarithmic, 100&nbsp;W to 10&nbsp;MW. Bands overlap because the right answer for a 30&nbsp;kW load depends on the heat medium available, not on who you are. Select a band to jump to it.</p>
+                    <p class="scale-caption">Select a band to jump to its category.</p>
                 </div>
             </div>
         </section>
@@ -1158,7 +1158,7 @@
       { id: 'institutions', label: 'Educational institutions and public sites', lo: 10000,  hi: 1000000,  color: 'var(--t3)' },
       { id: 'business',     label: 'Business solutions',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
       { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true },
-      { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 1500,     color: 'var(--t1)' },
+      { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 3000,     color: 'var(--t1)' },
       { id: 'district',     label: 'Public works and Agriculture',              lo: 500000, hi: 10000000, color: 'var(--t4)' }
     ];
 
