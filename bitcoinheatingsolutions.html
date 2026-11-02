@@ -840,6 +840,48 @@
                     </div>
                     <div class="cards" data-category="business"></div>
                 </div>
+
+                <div class="subcat" id="homes">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Home solutions</p>
+                            <h3 class="subcat-title">Space heating & Dehumidifying</h3>
+                        </div>
+                    </div>
+                    <p class="coming-soon">Our partners turn Bitcoin miners into clean, electric heaters and dehumidifiers that you can plug into your regular outlets at home, in your garage, or in your office.</p>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="heaterCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/space-heater-3d.html" title="Interactive 3D model of the S9 and Slim21 space heaters" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">This product can be built customized on demand.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subcat" id="district">
+                    <div class="cat-head">
+                        <div>
+                            <p class="eyebrow">Scaling for good</p>
+                            <h3 class="subcat-title">Public works & Agriculture</h3>
+                        </div>
+                    </div>
+                    <p class="lede">From cities capitalizing on their otherwise wasted solar energy, to greenhouses and farmstands being able to stay open all year in cold climates, these types of deployments reduce electricity costs, incentivize the integration of clean energy, and to generate revenue.</p>
+                    <div class="cards" data-category="district"></div>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="fixtureCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/solar-fixture-3d.html" title="Interactive 3D model of a solar streetlight, crosswalk beacon, and traffic light with a surplus-power miner" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">These products are still in testing.</p>
+                        </div>
+                    </div>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="greenhouseCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/greenhouse-3d.html" title="Interactive 3D model of a backyard greenhouse heated by a Slim21 miner" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">These products are still in testing.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -848,7 +890,7 @@
                 <div class="cat-head">
                     <div>
                         <p class="eyebrow eyebrow-lg">Partners&rsquo; products</p>
-                        <h2>Manufacturing, Homes,<br>and Public Works</h2>
+                        <h2>Manufacturing</h2>
                     </div>
                 </div>
                 <p class="lede">From print farms to university research labs to construction sites, 3D printing is transforming the way that we make and manufacture. Our partners build the tools that allow everyone, from institutions to individuals, to rebate or offset electricity-for-heating costs at small or large scale.</p>
@@ -856,7 +898,6 @@
                 <div class="subcat" id="printing">
                     <div class="cat-head">
                         <div>
-                            <p class="eyebrow">Manufacturing</p>
                             <h3 class="subcat-title">3D printing</h3>
                         </div>
                     </div>
@@ -896,47 +937,6 @@
                             </dl>
                             <a class="card-link" href="https://www.proof-of-print.com/" target="_blank" rel="noopener">proof-of-print.com &rarr;</a>
                         </article>
-                    </div>
-                </div>
-                <div class="subcat" id="homes">
-                    <div class="cat-head">
-                        <div>
-                            <p class="eyebrow">Home solutions</p>
-                            <h3 class="subcat-title">Space heating & Dehumidifying</h3>
-                        </div>
-                    </div>
-                    <p class="coming-soon">Our partners turn Bitcoin miners into clean, electric heaters and dehumidifiers that you can plug into your regular outlets at home, in your garage, or in your office.</p>
-                    <div class="feature feature-next">
-                        <div class="feature-card" id="heaterCard"></div>
-                        <div class="feature-model">
-                            <iframe src="models/space-heater-3d.html" title="Interactive 3D model of the S9 and Slim21 space heaters" loading="lazy"></iframe>
-                            <p class="fineprint feature-note">This product can be built customized on demand.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subcat" id="district">
-                    <div class="cat-head">
-                        <div>
-                            <p class="eyebrow">Industrial and district scale</p>
-                            <h3 class="subcat-title">Public works & Agriculture</h3>
-                        </div>
-                    </div>
-                    <p class="lede">From cities capitalizing on their otherwise wasted solar energy, to greenhouses and farmstands being able to stay open all year in cold climates, these types of deployments reduce electricity costs, incentivize the integration of clean energy, and to generate revenue.</p>
-                    <div class="cards" data-category="district"></div>
-                    <div class="feature feature-next">
-                        <div class="feature-card" id="fixtureCard"></div>
-                        <div class="feature-model">
-                            <iframe src="models/solar-fixture-3d.html" title="Interactive 3D model of a solar streetlight, crosswalk beacon, and traffic light with a surplus-power miner" loading="lazy"></iframe>
-                            <p class="fineprint feature-note">These products are still in testing.</p>
-                        </div>
-                    </div>
-                    <div class="feature feature-next">
-                        <div class="feature-card" id="greenhouseCard"></div>
-                        <div class="feature-model">
-                            <iframe src="models/greenhouse-3d.html" title="Interactive 3D model of a backyard greenhouse heated by a Slim21 miner" loading="lazy"></iframe>
-                            <p class="fineprint feature-note">These products are still in testing.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1261,15 +1261,15 @@
     const CATEGORIES = [
       { id: 'institutions', label: 'Educational institutions and public sites', lo: 100,    hi: 1500,     color: 'var(--t3)' },
       { id: 'business',     label: 'Business solutions',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
-      { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true },
       { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 3000,     color: 'var(--t1)' },
-      { id: 'district',     label: 'Public works and Agriculture',              lo: 100,    hi: 1500,     color: 'var(--t4)' }
+      { id: 'district',     label: 'Public works and Agriculture',              lo: 100,    hi: 1500,     color: 'var(--t4)' },
+      { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true }
     ];
 
     /* ---------- helpers ---------- */
     const BTU_PER_W = 3.412;
     const LOG_MIN = 2;   // 100 W
-    const LOG_MAX = 7;   // 100 kW
+    const LOG_MAX = 5;   // 100 kW
 
     const pos = w => ((Math.log10(w) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * 100;
 
