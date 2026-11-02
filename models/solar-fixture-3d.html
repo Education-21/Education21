@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Solar streetlight and crosswalk with surplus mining</title>
+<title>Solar streetlight, crosswalk, and traffic light with surplus mining</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
@@ -78,10 +78,10 @@ button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 </style>
 </head>
 <body>
-<div id="stage" aria-label="Interactive 3D model of a solar streetlight and crosswalk beacon with a surplus-power miner" role="img"></div>
+<div id="stage" aria-label="Interactive 3D model of a solar streetlight, crosswalk beacon, and traffic light with a surplus-power miner" role="img"></div>
 <div id="labels"></div>
 <header>
-  <h1>Solar streetlight and crosswalk</h1>
+  <h1>Solar streetlight, crosswalk, and traffic light</h1>
   <p>Solar fixtures with a small mining board that runs only on power the battery can’t store. Play the day to see when the panel charges, when the light runs, and when the miner switches on.</p>
 </header>
 <aside id="info" hidden aria-live="polite">
@@ -95,6 +95,7 @@ button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
       <div class="seg" role="group" aria-label="Fixture">
         <button type="button" data-mode="streetlight" aria-pressed="true">Streetlight</button>
         <button type="button" data-mode="crosswalk" aria-pressed="false">Crosswalk</button>
+        <button type="button" data-mode="traffic" aria-pressed="false">Traffic light</button>
       </div>
       <label for="time"><span>Time of day</span><output id="readout" for="time">12:30 pm</output></label>
       <input id="time" type="range" min="0" max="23.99" step="0.05" value="12.5">
@@ -321,6 +322,31 @@ function beaconPost(x, z, facing, withMiner, panelW, panelD){
 beaconPost(-6.5, 11, 1, true, 4.4, 2.3);
 beaconPost(6.5, -11, -1, false, 2.4, 1.6);
 
+// Traffic light version: grid-powered signal with a solar add-on and a miner in the controller cabinet
+const tl = new THREE.Group(); root.add(tl);
+const TX = 9, TZ = -11.4;
+cyl(0.32, 22, pole, TX, 0.4, TZ, 16, tl);                                              // mast pole
+box(0.35, 0.35, 15, pole, TX, 18.6, TZ + 7.5, tl);                                     // mast arm over the road
+const sigRed = [], sigYel = [], sigGrn = [];
+function signalHead(x, y, z, parent){
+  box(1.1, 3.4, 1, [M.dark, M.dark, M.dark, M.dark, M.dark, yellowPaint], x, y, z, parent);
+  [[2.4, 0xff3b2f, sigRed], [1.35, 0xffb000, sigYel], [0.3, 0x2fd06a, sigGrn]].forEach(function(l){
+    const m = new THREE.MeshStandardMaterial({color:0x222222, emissive:l[1], emissiveIntensity:0});
+    const lens = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), m);
+    lens.position.set(x, y + l[0] + 0.25, z + 0.51); parent.add(lens); l[2].push(m);
+  });
+}
+signalHead(TX, 15, TZ + 7, tl); signalHead(TX, 15, TZ + 12.5, tl);
+box(1.2, 1.4, 0.4, M.dark, TX - 0.55, 9, TZ + 0.35, tl);                               // pedestrian signal
+const walkMat = new THREE.MeshStandardMaterial({color:0x222222, emissive:0xff8a2a, emissiveIntensity:0.9});
+box(0.8, 0.9, 0.05, walkMat, TX - 0.55, 9.25, TZ + 0.57, tl);
+box(2.6, 4.6, 1.8, M.alu, TX + 2.2, 0.4, TZ - 0.8, tl);                                // controller cabinet
+box(2.2, 0.1, 1.5, M.dark, TX + 2.2, 5.0, TZ - 0.8, tl);
+minerBox(TX + 2.2, 3.4, TZ + 0.25, tl);
+box(1.6, 1.3, 0.8, M.dark, TX + 2.2, 1.2, TZ + 0.25, tl);                              // backup battery
+solarPanel(6, 3.3, TX, 23.2, TZ, tl);
+cyl(0.12, 1, pole, TX, 22.3, TZ, 10, tl);
+
 // ---- Energy particles ----
 const flows = new THREE.Group(); root.add(flows);
 const sphere = new THREE.SphereGeometry(1, 10, 8);
@@ -330,6 +356,11 @@ const PATHS = {
     charge: path([[SX, 21.9, SZ], [SX + 0.3, 20.5, SZ - 0.2], [SX + 0.3, 12.5, SZ - 0.5], [SX + 0.1, 10, SZ - 0.9]]),
     light:  path([[SX - 0.3, 9.6, SZ - 0.9], [SX - 0.3, 15, SZ - 0.3], [SX - 0.2, 20.6, SZ - 0.4], [SX, 20.8, SZ - 3], [SX, 20.5, SZ - 4.2]]),
     mine:   path([[SX, 21.9, SZ + 0.2], [SX - 0.35, 18, SZ - 0.3], [SX - 0.2, 12.4, SZ - 0.7], [SX, 11.9, SZ - 0.7]])
+  },
+  traffic: {
+    charge: path([[TX, 22.9, TZ], [TX + 0.4, 18, TZ - 0.3], [TX + 1.2, 6, TZ - 0.5], [TX + 2.2, 2.6, TZ + 0.3]]),
+    light:  path([[TX + 2.2, 4.6, TZ - 0.4], [TX + 0.4, 8, TZ - 0.4], [TX + 0.3, 18.4, TZ], [TX, 18.4, TZ + 4], [TX, 18.2, TZ + 7]]),
+    mine:   path([[TX + 0.2, 22.9, TZ + 0.2], [TX + 0.6, 16, TZ], [TX + 1.6, 5.5, TZ + 0.2], [TX + 2.2, 4.1, TZ + 0.3]])
   },
   crosswalk: {
     charge: path([[-6.5, 11.8, 11], [-6.7, 9, 11.2], [-7.2, 6.6, 11.2], [-7.25, 5.6, 11]]),
@@ -353,7 +384,9 @@ const MODES = {
   streetlight: {panelW:200, pvPeak:136, cap:1200, minerW:60, lightLabel:"40 W LED, dusk to dawn",
                 load: function(t){ return (t >= 18 || t < 6) ? 41 : 1; }, lit: function(t){ return t >= 18 || t < 6; }},
   crosswalk:   {panelW:150, pvPeak:102, cap:600,  minerW:70, lightLabel:"Beacons on demand, ~3 W average",
-                load: function(){ return 3; }, lit: function(){ return false; }}
+                load: function(){ return 3; }, lit: function(){ return false; }},
+  traffic:     {panelW:300, pvPeak:204, cap:1200, minerW:70, grid:true, lightLabel:"Signal heads, ~60 W, grid-backed",
+                load: function(){ return 60; }, lit: function(){ return true; }}
 };
 function simulate(m){
   const dt = 5/60, n = 288; let soc = m.cap*0.5; let out = null;
@@ -362,11 +395,11 @@ function simulate(m){
     for (let i = 0; i < n; i++){
       const t = i*dt;
       const pv = (t >= 6 && t <= 18) ? m.pvPeak * Math.pow(Math.sin(Math.PI*(t - 6)/12), 1.5) : 0;
-      const L = m.load(t);
+      const L = m.grid ? Math.min(m.load(t), pv) : m.load(t);
       let mp = 0;
       if (soc >= 0.95*m.cap && pv - L >= 0.5*m.minerW) mp = Math.min(m.minerW, pv - L);   // battery full first
       const f = pv - L - mp;
-      soc = f > 0 ? Math.min(m.cap, soc + f*dt*0.95) : Math.max(0, soc + f*dt/0.95);
+      soc = f > 0 ? Math.min(m.cap, soc + f*dt*0.95) : (m.grid ? soc : Math.max(0, soc + f*dt/0.95));
       rec.pv.push(pv); rec.load.push(L); rec.miner.push(mp); rec.soc.push(soc/m.cap);
     }
     out = rec;
@@ -389,12 +422,13 @@ function updateReadouts(){
   document.getElementById("sBatt").textContent = Math.round(s.soc*100) + "%";
   document.getElementById("sMiner").textContent = s.miner > 0 ? Math.round(s.miner) + " W · " + th4(s.miner).toFixed(1) + " TH/s" : "off";
   document.getElementById("dayNote").textContent = "Typical Los Angeles day: the miner runs about " + m.day.minerH.toFixed(1) + " h on " +
-    (m.day.minerWh/1000).toFixed(2) + " kWh of surplus solar, averaging " + m.day.thAvg.toFixed(1) + " TH/s across 24 h. Battery charges first; the light always wins.";
+    (m.day.minerWh/1000).toFixed(2) + " kWh of surplus solar, averaging " + m.day.thAvg.toFixed(1) + " TH/s across 24 h. " +
+    (m.grid ? "The signal stays on grid power; solar covers it by day and keeps the backup battery full." : "Battery charges first; the light always wins.");
 }
 function setMode(next){
   mode = next;
   document.querySelectorAll("[data-mode]").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.mode === mode)); });
-  sl.visible = mode === "streetlight"; cw.visible = mode === "crosswalk";
+  sl.visible = mode === "streetlight"; cw.visible = mode === "crosswalk"; tl.visible = mode === "traffic";
   spots.forEach(function(s){ s.el.hidden = s.mode !== mode; });
   if (openSpot && openSpot.mode !== mode){ openSpot.el.setAttribute("aria-expanded", "false"); openSpot = null; info.hidden = true; }
   updateReadouts();
@@ -412,6 +446,10 @@ const spots = [
   {mode:"streetlight", n:"LED light", p:[SX, 21.8, SZ - 4.3], d:"A 40 W LED runs dusk to dawn, about 0.5 kWh a night. The light always has first claim on the battery."},
   {mode:"streetlight", n:"Battery", p:[SX - 1, 9.2, SZ - 0.7], d:"About 1.2 kWh of storage, enough for a night of lighting with reserve. It must reach full charge before the miner may draw anything."},
   {mode:"streetlight", n:"Mining board", p:[SX + 1.1, 11.8, SZ - 0.6], d:"Four BM1370 chips at about 60 W (4.1 TH/s). It switches on only when the battery is full and the panel is still producing: typically around midday, for about four hours."},
+  {mode:"traffic", n:"Signal heads", p:[TX, 19.6, TZ + 9.7], d:"LED signals stay on grid power, as traffic safety requires. The solar add-on carries part of their load by day, about 60 W in this model."},
+  {mode:"traffic", n:"Solar add-on", p:[TX, 24.6, TZ], d:"About 300 W of panel on the mast pole. It powers the signal by day and keeps the backup battery full; whatever is left over runs the miner."},
+  {mode:"traffic", n:"Controller cabinet", p:[TX + 3.6, 5.4, TZ - 0.8], d:"The signal controller cabinet houses the backup battery and the mining board. In cold climates the board\u2019s heat can stand in for the cabinet\u2019s own thermostatic heater."},
+  {mode:"traffic", n:"Mining board", p:[TX + 2.2, 4.6, TZ + 1.1], d:"Four BM1370 chips at about 70 W (4.8 TH/s). It runs only on solar surplus once the battery is full: roughly seven hours on an average Los Angeles day, about four in winter."},
   {mode:"crosswalk", n:"Rapid flashing beacons", p:[-6.2, 7.9, 11.3], d:"Amber LED bars that flash when a pedestrian presses the button. They use only a few watts on average, so most of the panel's output is spare."},
   {mode:"crosswalk", n:"Solar panel", p:[-6.5, 13.4, 11], d:"About 150 W of panel, larger than a beacon alone needs, sized so the spare midday output can run the miner."},
   {mode:"crosswalk", n:"Battery cabinet", p:[-8, 5.4, 11], d:"About 0.6 kWh of storage keeps the beacons ready for days of cloud. It charges first."},
@@ -458,11 +496,16 @@ function animateScene(dt, clock){
   if (hemi) hemi.intensity = hemiBase * (0.35 + 0.65*sun);
   key.intensity = keyBase * (0.15 + 0.85*sun);
   const lit = m.lit(hour);
-  ledMat.emissiveIntensity = lit ? 2.2 : 0;
-  coneMat.opacity = lit ? 0.16 : 0;
+  const lamp = lit && mode === "streetlight";
+  ledMat.emissiveIntensity = lamp ? 2.2 : 0;
+  coneMat.opacity = lamp ? 0.16 : 0;
   flash += dt;
   const pressed = mode === "crosswalk" && (clock % 14) < 6;
   beaconMats.forEach(function(mat, k){ mat.emissiveIntensity = pressed && (Math.floor(flash*6) % 2 === k % 2) ? 2.5 : 0; });
+  const ph = clock % 20, phase = ph < 9 ? 2 : ph < 12 ? 1 : 0;   // green, yellow, red
+  sigGrn.forEach(function(m){ m.emissiveIntensity = phase === 2 ? 2.4 : 0; });
+  sigYel.forEach(function(m){ m.emissiveIntensity = phase === 1 ? 2.4 : 0; });
+  sigRed.forEach(function(m){ m.emissiveIntensity = phase === 0 ? 2.4 : 0; });
   minerLeds.forEach(function(l){ l.material.color.set(s.miner > 0 ? 0x4fd17a : 0x555555); });
   const P = PATHS[mode], speed = reduceMotion ? 0.15 : 0.45;
   const on = {charge: s.pv > 1 && s.soc < 0.995, light: lit || (mode === "crosswalk" && pressed), mine: s.miner > 0};
