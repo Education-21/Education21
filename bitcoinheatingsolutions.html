@@ -910,6 +910,7 @@
                         <div class="feature-card" id="heaterCard"></div>
                         <div class="feature-model">
                             <iframe src="models/space-heater-3d.html" title="Interactive 3D model of the S9 and Slim21 space heaters" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">This product can be built customized on demand.</p>
                         </div>
                     </div>
                 </div>
@@ -923,6 +924,20 @@
                     </div>
                     <p class="lede">At megawatt scale, the miner stops being an appliance and becomes a boiler for district heating and manufacturing, or an integrated system for greenhouse growing and agrivoltaics. From growing tulips in the Netherlands, to providing community heating in Finland, to growing lettuce in Quebec, these types of deployments are becoming increasing common ways to reduce electricity costs, incentivize the integration of clean energy, and to generate revenue.</p>
                     <div class="cards" data-category="district"></div>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="fixtureCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/solar-fixture-3d.html" title="Interactive 3D model of a solar streetlight and crosswalk beacon with a surplus-power miner" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">These products are still in testing.</p>
+                        </div>
+                    </div>
+                    <div class="feature feature-next">
+                        <div class="feature-card" id="greenhouseCard"></div>
+                        <div class="feature-model">
+                            <iframe src="models/greenhouse-3d.html" title="Interactive 3D model of a backyard greenhouse heated by a Slim21 miner" loading="lazy"></iframe>
+                            <p class="fineprint feature-note">These products are still in testing.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1010,7 +1025,7 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="btcprice">BTC price ($)</label>
+                                <label for="btcprice">BTC price ($, live)</label>
                                 <input type="number" id="btcprice" value="62000" min="1" step="1000">
                             </div>
                             <p>Mining income per terahash fluctuates with the network&rsquo;s global hashrate and difficulty. See the live figures at <a href="https://mempool.space/mining" target="_blank" rel="noopener">mempool.space/mining</a>.</p>
@@ -1116,7 +1131,7 @@
                 ['Max (overclocked)', '8.1 TH/s · 140 W · ~17 J/TH'],
                 ['Solar output (max)', '~1.8 kWh/day in full sun'], ['Solar offset (max)', '~90% of stock load after battery losses'],
                 ['Sunlight', 'Light-stable objects only; UV-filtered glass'],
-                ['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Status', 'Patent pending'], ['Est. model cost', '$5,500 or shared hashrate']]
+                ['Cabinet', 'Sealed, dual-zone'], ['Glazing', 'BIPV laminated'], ['Est. unit cost', {usd: 5500, after: 'or shared hashrate'}]]
       },
       {
         id: 'teaching-rig',
@@ -1133,18 +1148,18 @@
             label: 'Teaching Rig (Lab)',
             w: 1200, miningW: 1200, th: 80,
             specs: [['Version', 'Lab'], ['Board', 'Single S21-class hashboard'], ['Efficiency', '~15 J/TH'],
-                    ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+                    ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric'], ['Est. unit cost', {usd: 3500, after: 'or shared hashrate'}]]
           },
           class: {
             label: 'Teaching Rig (Classroom)',
             w: 140, miningW: 140, th: 8.1,
             specs: [['Version', 'Classroom'], ['Board', '4\u00d7 BM1370 (S21 Pro chips), 12 V DC'], ['Stock setting', '4.8 TH/s \u00b7 ~70 W \u00b7 ~14.5 J/TH'],
-                    ['Max (overclocked)', '8.1 TH/s \u00b7 140 W \u00b7 ~17 J/TH'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+                    ['Max (overclocked)', '8.1 TH/s \u00b7 140 W \u00b7 ~17 J/TH'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric'], ['Est. unit cost', {usd: 3000, after: 'or shared hashrate'}]]
           }
         },
         desc: 'A bench-scale hydronic loop with logged inlet and outlet temperatures, flow rate, power draw, and pool share, wired to a dashboard students can query. Built to teach the first law of thermodynamics and proof-of-work from the same apparatus. It&rsquo;s also perfect for teaching the full open-source mining stack of the <a href="https://www.256foundation.org/projects" target="_blank" rel="noopener">256 Foundation</a>. Ships with lab exercises and a marking rubric.',
         specs: [['Version', 'Lab'], ['Board', 'Single S21-class hashboard'], ['Efficiency', '~15 J/TH'],
-                ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
+                ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric'], ['Est. unit cost', {usd: 3500, after: 'or shared hashrate'}]]
       },
 
       /* ---- Small businesses ---- */
@@ -1157,9 +1172,8 @@
         feature: 'massageCard',
         w: 1215, miningW: 1215, th: 90, medium: 'water',
         desc: 'A treatment table whose padding hides a closed loop of PEX tubing, warmed by a single water-cooled hashboard on the shelf below. The therapist sets the surface temperature by setting the miner\u2019s power target, so the hashrate comes from heat the spa already pays for.',
-        specs: [['Board', 'Single S21-class'], ['Efficiency', '13.5 J/TH'], ['Est. model cost', '$4,000 or shared hashrate'],
-                ['S19 option', '~30 TH/s at 24 J/TH'], ['S19 draw · heat', '720 W · ~2,457 BTU/hr'], ['S19 est. cost', '$2,000 or shared hashrate'],
-                ['Status', 'Working build']]
+        specs: [['Board', 'Single S21-class'], ['Efficiency', '13.5 J/TH'], ['Est. unit cost', {usd: 4000, after: 'or shared hashrate'}],
+                ['S19 option', '~30 TH/s at 24 J/TH'], ['S19 draw · heat', '720 W · ~2,457 BTU/hr'], ['S19 option cost', {usd: 2000, after: 'or shared hashrate'}]]
       },
       {
         id: 'shop-array',
@@ -1170,21 +1184,21 @@
         sizingVariants: true,   // the sizing tool lists each version separately
         w: 800, miningW: 800, th: 11.3, medium: 'air',
         desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
-        specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']],
+        specs: [['Model', 'S9 Space Heater Edition'], ['Est. unit cost', {usd: 170}], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']],
         // The 3D model's S9 / Slim21 switch swaps these values into the card
         variants: {
           s9: {
             label: 'S9 Space Heater Edition',
             w: 800, miningW: 800, th: 11.3,
             desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
-            specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
+            specs: [['Model', 'S9 Space Heater Edition'], ['Est. unit cost', {usd: 170}], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
           },
           slim21: {
             label: 'Slim21 Space Heater',
             w: 1200, miningW: 1200, th: 80,
             desc: 'An Antminer S21 Pro chassis rebuilt around a single hashboard, powered by a repurposed S9 power supply, fan-cooled, and run by a Loki-chip control board. About seven times the hashrate of an S9 heater for one and a half times the power, still on an ordinary 120 V circuit.',
             specs: [['Model', 'Slim21'], ['Build', 'S21 Pro chassis, single hashboard'], ['Power supply', 'S9 (APW3)'], ['Control board', 'Loki chip'],
-                    ['Efficiency', '~15 J/TH'], ['Circuit', '120 V, ~10 A'], ['Est. price', '$999']]
+                    ['Efficiency', '~15 J/TH'], ['Circuit', '120 V, ~10 A'], ['Est. unit cost', {usd: 999}]]
           }
         }
       },
@@ -1193,31 +1207,47 @@
 
       /* ---- Industrial and district ---- */
       {
-        id: 'district',
-        name: 'District Heating Integration',
-        vendor: 'MARA-class',
+        id: 'solar-fixture',
+        name: 'Solar Streetlight and Crosswalk',
+        vendor: 'Education21',
+        own: true,
         category: 'district',
-        w: 1000000, miningW: 1000000, th: 64000, medium: 'water',
-        desc: 'Megawatt-scale hash boards tied into an existing municipal thermal network, displacing peat, oil, or wood at the margin. MARA reports integrating into two Finnish district systems in under thirty days, one of which serves a network covering more than 11,000 residents.',
-        specs: [['Scale', '1 MW+ thermal'], ['Integration', '<30 days reported'], ['Displaces', 'Peat, oil, wood']]
+        feature: 'fixtureCard',
+        sizingVariants: true,   // the sizing tool lists each fixture separately
+        offGrid: true,          // runs only on surplus solar: no electricity cost
+        w: 60, miningW: 60, th: 4.1, medium: 'air', defaultHours: 4,
+        desc: 'A solar streetlight with a small mining board that draws only what the battery can\u2019t store. The light and battery always come first; around midday, once the battery is full, the board takes the surplus instead of letting the panel sit idle. In cold climates its waste heat can keep the battery warm enough to charge.',
+        specs: [['Panel', '~200 W'], ['Light', '40 W LED, dusk to dawn'], ['Battery', '~1.2 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~60 W'],
+                ['Mining window', '~4 h/day (Los Angeles average)'], ['Surplus mined', '~0.25 kWh/day; little or none in winter'], ['Est. unit cost', {usd: 2400, after: 'per fixture, pole and installation extra, or shared hashrate'}]],
+        // The 3D model's Streetlight / Crosswalk switch swaps these values into the card
+        variants: {
+          streetlight: {
+            label: 'Solar Streetlight',
+            w: 60, miningW: 60, th: 4.1, defaultHours: 4,
+            desc: 'A solar streetlight with a small mining board that draws only what the battery can\u2019t store. The light and battery always come first; around midday, once the battery is full, the board takes the surplus instead of letting the panel sit idle. In cold climates its waste heat can keep the battery warm enough to charge.',
+            specs: [['Panel', '~200 W'], ['Light', '40 W LED, dusk to dawn'], ['Battery', '~1.2 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~60 W'],
+                    ['Mining window', '~4 h/day (Los Angeles average)'], ['Surplus mined', '~0.25 kWh/day; little or none in winter'], ['Est. unit cost', {usd: 2400, after: 'per fixture, pole and installation extra, or shared hashrate'}]]
+          },
+          crosswalk: {
+            label: 'Solar Crosswalk Beacon',
+            w: 70, miningW: 70, th: 4.8, defaultHours: 7,
+            desc: 'Solar rapid flashing beacons at a crosswalk use only a few watts, so a slightly larger panel leaves most of the day\u2019s output spare. Once the battery is full, a small mining board runs on that surplus. The beacons never wait on it.',
+            specs: [['Panel', '~150 W'], ['Beacons', '~3 W average'], ['Battery', '~0.6 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~70 W'],
+                    ['Mining window', '~7 h/day (Los Angeles average)'], ['Surplus mined', '~0.3\u20130.5 kWh/day'], ['Est. unit cost', {usd: 5500, after: 'per beacon pair, posts and installation extra, or shared hashrate'}]]
+          }
+        }
       },
       {
-        id: 'container',
-        name: 'Containerised Municipal Heat Unit',
-        vendor: 'Power Mining-class',
+        id: 'greenhouse',
+        name: 'Backyard Greenhouse',
+        vendor: 'Education21',
+        own: true,
         category: 'district',
-        w: 2000000, miningW: 2000000, th: 128000, medium: 'water',
-        desc: 'A shipping-container plant that arrives pre-plumbed for connection to a municipal heat main. Sited on existing utility land, it turns a substation interconnect into a heat source without a building permit for new structure.',
-        specs: [['Form', '20/40 ft container'], ['Siting', 'Utility parcel'], ['Interconnect', 'Heat main + MV']]
-      },
-      {
-        id: 'cea',
-        name: 'Controlled-Environment Agriculture',
-        vendor: 'Canaan + grower partnership',
-        category: 'district',
-        w: 3000000, miningW: 3000000, th: 165000, medium: 'water',
-        desc: 'The full 3 MW configuration Canaan deployed in Manitoba: 360 liquid-cooled Avalon units and four cooling modules on a closed loop into a year-round tomato greenhouse, at an all-in power cost near $0.035/kWh. Eliminating the cooling towers is itself a capital saving.',
-        specs: [['Deployment', '3 MW, 360 units'], ['Power cost', '~$0.035/kWh'], ['Bonus', 'No cooling towers']]
+        feature: 'greenhouseCard',
+        w: 1200, miningW: 1200, th: 80, medium: 'air', defaultHours: 12,
+        desc: 'An 8 \u00d7 10 ft greenhouse glazed with PV glass on its south roof, with an insulated north wall and water barrels for thermal mass. A single Slim21 holds it about 26 \u00b0F above a winter night outdoors, enough for greens and roots through most cold-climate winters; tomatoes and peppers on the coldest nights take a second unit.',
+        specs: [['Footprint', '8 \u00d7 10 ft'], ['Heater', 'Slim21: 1.2 kW, 80 TH/s'], ['Night heat lift', '~26 \u00b0F above outdoors'],
+                ['Glazing', 'PV glass south roof (~35% cells), clear elsewhere'], ['Solar', '~0.5 kW peak; offsets daytime use, nights run on grid'], ['Est. unit cost', {usd: 8500, after: 'or shared hashrate'}]]
       }
     ];
 
@@ -1226,7 +1256,7 @@
       { id: 'business',     label: 'Business solutions',                          lo: 1500,   hi: 50000,    color: 'var(--t2)' },
       { id: 'printing',     label: '3D printing and desiccation',     lo: 100,    hi: 1500,     color: '#5C2200', scaleOnly: true },
       { id: 'homes',        label: 'Space heating and Dehumidifying',                    lo: 300,    hi: 3000,     color: 'var(--t1)' },
-      { id: 'district',     label: 'Public works and Agriculture',              lo: 500000, hi: 10000000, color: 'var(--t4)' }
+      { id: 'district',     label: 'Public works and Agriculture',              lo: 100,    hi: 1500,     color: 'var(--t4)' }
     ];
 
     /* ---------- helpers ---------- */
@@ -1278,12 +1308,52 @@
     })();
 
     /* ---------- product cards ---------- */
+    /* ---------- prices: sats at the live BTC price, USD in parentheses ---------- */
+    let BTC_USD = null;
+    try {
+      const cached = JSON.parse(localStorage.getItem('e21-btc-usd') || 'null');
+      if (cached && Date.now() - cached.t < 6 * 3600 * 1000) BTC_USD = cached.usd;   // last price seen, up to 6 h old
+    } catch (e) {}
+    function priceText(usd) {
+      const dollars = '~$' + usd.toLocaleString('en-US') + ' USD';
+      if (!BTC_USD) return dollars;
+      const sats = usd / BTC_USD * 1e8;
+      const mag = Math.pow(10, Math.max(0, Math.floor(Math.log10(sats)) - 2));      // 3 significant figures
+      return '~' + (Math.round(sats / mag) * mag).toLocaleString('en-US') + ' sats (' + dollars + ')';
+    }
+    function costHTML(c) {
+      return '<span class="price" data-usd="' + c.usd + '">' + priceText(c.usd) + '</span>' + (c.after ? ' ' + c.after : '');
+    }
+    function refreshPrices() {
+      document.querySelectorAll('.price[data-usd]').forEach(el => { el.textContent = priceText(Number(el.dataset.usd)); });
+    }
+    async function fetchBTC() {
+      const sources = [
+        ['https://mempool.space/api/v1/prices', d => d.USD],
+        ['https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd', d => d.bitcoin.usd]
+      ];
+      for (const [url, pick] of sources) {
+        try {
+          const r = await fetch(url, {cache: 'no-store'});
+          if (!r.ok) continue;
+          const usd = Number(pick(await r.json()));
+          if (usd > 0) {
+            BTC_USD = usd;
+            try { localStorage.setItem('e21-btc-usd', JSON.stringify({usd: usd, t: Date.now()})); } catch (e) {}
+            refreshPrices();
+            document.dispatchEvent(new CustomEvent('e21-btc-price', {detail: usd}));
+            return;
+          }
+        } catch (e) {}
+      }
+    }
+
     const thText = th => th ? (th < 100 ? String(Math.round(th * 10) / 10) : compact(th)) + ' TH/s' : '\u2014';
 
     function cardHTML(p, color) {
       const btu = Math.round(p.miningW * BTU_PER_W);
       const extra = p.specs.map(s =>
-        '<div class="spec"><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'
+        '<div class="spec"><dt>' + s[0] + '</dt><dd>' + (typeof s[1] === 'object' ? costHTML(s[1]) : s[1]) + '</dd></div>'
       ).join('');
       return '<div class="card-thermal" style="width:' + Math.max(12, pos(p.w)) + '%;background:' + color + '"></div>' +
         (p.own ? '' : '<p class="card-vendor">' + p.vendor + '</p>') +
@@ -1313,6 +1383,9 @@
         });
       });
     })();
+
+    fetchBTC();
+    setInterval(fetchBTC, 10 * 60 * 1000);
 
     /* ---------- cards follow their 3D model's version switch (teaching rig, space heaters) ---------- */
     (function variantCards() {
@@ -1355,6 +1428,16 @@
       });
 
       sel.value = 'vitrine';
+
+      const btcInput = document.getElementById('btcprice');
+      btcInput.addEventListener('input', e => { if (e.isTrusted) btcInput.dataset.edited = '1'; });
+      function liveBTC(usd) {
+        if (!usd || btcInput.dataset.edited) return;
+        btcInput.value = Math.round(usd);
+        btcInput.dispatchEvent(new Event('input'));
+      }
+      liveBTC(BTC_USD);
+      document.addEventListener('e21-btc-price', e => liveBTC(e.detail));
 
       const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'btcprice',
                    'vPower', 'vSun', 'vSolar', 'vSunHours', 'vFan', 'vBatt', 'vEff'];
@@ -1486,7 +1569,8 @@
         document.getElementById('hoursField').hidden = isVitrine;
         if (p.id !== lastUnit) {
           // The vitrine runs year-round; heating units default to a season
-          document.getElementById('days').value = isVitrine ? 365 : 180;
+          document.getElementById('days').value = (isVitrine || p.offGrid) ? 365 : 180;   // year-round units
+          document.getElementById('hours').value = p.defaultHours || 24;
           lastUnit = p.id;
         }
         if (isVitrine) { recalcVitrine(p); return; }
@@ -1503,7 +1587,7 @@
 
         // Energy actually drawn to make the heat
         const kWh = (totalW / 1000) * hours * days;
-        const elecCost = kWh * rate;
+        const elecCost = p.offGrid ? 0 : kWh * rate;   // surplus solar costs nothing
 
         // Mining only earns while the unit runs
         const sats = p.th * qty * satsPerThDay * days * (hours / 24);
@@ -1517,7 +1601,9 @@
 
         const rows = [
           { name: p.name + (qty > 1 ? ' ×' + qty : ''), kWh: kWh, cost: elecCost, credit: satsValue, net: net },
-          { name: 'Electric resistance', kWh: kWh, cost: elecCost, credit: 0, net: elecCost }
+          p.offGrid
+            ? { name: 'Same surplus, left unused', kWh: kWh, cost: 0, credit: 0, net: 0 }
+            : { name: 'Electric resistance', kWh: kWh, cost: elecCost, credit: 0, net: elecCost }
         ];
 
         const best = Math.min.apply(null, rows.map(r => r.net));
@@ -1532,9 +1618,10 @@
           '</tr>'
         ).join('');
 
-        document.getElementById('verdict').textContent =
-          'Against an ordinary electric heater making the same heat, the mining credit saves about ' + money(satsValue) +
-          ' over this period at these assumptions.';
+        document.getElementById('verdict').textContent = p.offGrid
+          ? 'This unit runs only on solar the battery can\u2019t store, so its electricity costs nothing. Without the miner that surplus is simply lost; with it, the credit is about ' + money(satsValue) + ' over this period.'
+          : 'Against an ordinary electric heater making the same heat, the mining credit saves about ' + money(satsValue) +
+            ' over this period at these assumptions.';
       }
 
       ids.forEach(id => {
