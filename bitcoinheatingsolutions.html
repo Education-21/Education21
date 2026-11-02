@@ -1008,17 +1008,12 @@
                                     <label for="hashprice">Sats / TH / day</label>
                                     <input type="number" id="hashprice" value="50" min="0" step="1">
                                 </div>
-                                <div class="field" id="copField">
-                                    <label for="cop">Heat pump COP (see note)</label>
-                                    <input type="number" id="cop" value="3.0" min="1" step="0.1">
-                                </div>
                             </div>
                             <div class="field">
-                                <label for="btcprice">BTC price ($) — for the comparison only</label>
+                                <label for="btcprice">BTC price ($)</label>
                                 <input type="number" id="btcprice" value="62000" min="1" step="1000">
                             </div>
-                            <p>Sats per terahash per day is the only figure here that moves daily; the default reflects roughly 890 EH/s of network hashrate as of late July 2026. Check it against <a href="https://hashrateindex.com" target="_blank" rel="noopener">hashrateindex.com</a> before you quote anything from this tool.</p>
-                            <p>COP 3.0 is a mild-climate figure. Air-source heat pumps derate as it gets colder — in the Southern Tier a seasonal average nearer 2.0&ndash;2.5 is realistic, and below about 5&nbsp;&deg;F many units fall back to resistance strips at COP 1.0. Set this honestly for your climate; it is the number the whole comparison turns on.</p>
+                            <p>Mining income per terahash rises and falls with the network&rsquo;s total hashrate and difficulty, so it changes daily. See the live figures at <a href="https://mempool.space/mining" target="_blank" rel="noopener">mempool.space/mining</a>.</p>
                         </div>
                     </div>
 
@@ -1127,6 +1122,7 @@
       {
         id: 'teaching-rig',
         feature: 'rigCard',
+        sizingVariants: true,   // the sizing tool lists the lab and classroom versions separately
         name: 'Teaching Rig',
         vendor: 'Education21',
         own: true,
@@ -1135,11 +1131,13 @@
         // The 3D model's Lab / Classroom switch swaps these values into the card
         variants: {
           lab: {
+            label: 'Teaching Rig (Lab)',
             w: 1200, miningW: 1200, th: 80,
             specs: [['Version', 'Lab'], ['Board', 'Single S21-class hashboard'], ['Efficiency', '~15 J/TH'],
                     ['Circuit', 'Standard 120 V, 15 A'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
           },
           class: {
+            label: 'Teaching Rig (Classroom)',
             w: 140, miningW: 140, th: 8.1,
             specs: [['Version', 'Classroom'], ['Board', '4\u00d7 BM1370 (S21 Pro chips), 12 V DC'], ['Stock setting', '4.8 TH/s \u00b7 ~70 W \u00b7 ~14.5 J/TH'],
                     ['Max (overclocked)', '8.1 TH/s \u00b7 140 W \u00b7 ~17 J/TH'], ['Footprint', 'Benchtop cart'], ['Data', 'Logged, API-exposed'], ['Includes', 'Lab manual + rubric']]
@@ -1170,17 +1168,20 @@
         vendor: 'Space Heaters',
         category: 'homes',
         feature: 'heaterCard',
+        sizingVariants: true,   // the sizing tool lists each version separately
         w: 800, miningW: 800, th: 11.3, medium: 'air',
         desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
         specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']],
         // The 3D model's S9 / Slim21 switch swaps these values into the card
         variants: {
           s9: {
+            label: 'S9 Space Heater Edition',
             w: 800, miningW: 800, th: 11.3,
             desc: 'Reconditioned S9 units rebuilt into quiet enclosures, ganged to warm a garage bay, workshop, or storage building where nobody minds a fan. The cheapest possible entry into mining heat, and undervolted to about 800 W each they run on ordinary 120 V circuits.',
             specs: [['Model', 'S9 Space Heater Edition'], ['Per unit', '~$235 CAD'], ['Max output', 'Up to 4,606 BTU/hr'], ['Circuit', '120 V when undervolted']]
           },
           slim21: {
+            label: 'Slim21 Space Heater',
             w: 1200, miningW: 1200, th: 80,
             desc: 'An Antminer S21 Pro chassis rebuilt around a single hashboard, powered by a repurposed S9 power supply, fan-cooled, and run by a Loki-chip control board. About seven times the hashrate of an S9 heater for one and a half times the power, still on an ordinary 120 V circuit.',
             specs: [['Model', 'Slim21'], ['Build', 'S21 Pro chassis, single hashboard'], ['Power supply', 'S9 (APW3)'], ['Control board', 'Loki chip'],
@@ -1341,17 +1342,22 @@
         const group = document.createElement('optgroup');
         group.label = c.label;
         PRODUCTS.filter(p => p.category === c.id && !p.noSizing).forEach(p => {
-          const opt = document.createElement('option');
-          opt.value = p.id;
-          opt.textContent = p.name + ' — ' + watts(p.w);
-          group.appendChild(opt);
+          const entries = p.sizingVariants
+            ? Object.keys(p.variants).map(k => ({value: p.id + ':' + k, text: p.variants[k].label, w: p.variants[k].w}))
+            : [{value: p.id, text: p.name, w: p.w}];
+          entries.forEach(e => {
+            const opt = document.createElement('option');
+            opt.value = e.value;
+            opt.textContent = e.text + ' — ' + watts(e.w);
+            group.appendChild(opt);
+          });
         });
         sel.appendChild(group);
       });
 
       sel.value = 'vitrine';
 
-      const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'cop', 'btcprice',
+      const ids = ['unit', 'qty', 'hours', 'days', 'rate', 'hashprice', 'btcprice',
                    'vPower', 'vSun', 'vSolar', 'vSunHours', 'vFan', 'vBatt', 'vEff'];
       const val = id => parseFloat(document.getElementById(id).value) || 0;
 
@@ -1466,14 +1472,19 @@
       }
 
       function recalc() {
-        const p = PRODUCTS.find(x => x.id === sel.value);
+        // "product:variant" values pick one version of a product with variants
+        const [pid, vkey] = sel.value.split(':');
+        const base = PRODUCTS.find(x => x.id === pid);
+        if (!base) return;
+        const p = vkey && base.variants && base.variants[vkey]
+          ? Object.assign({}, base, base.variants[vkey], {id: sel.value, name: base.variants[vkey].label})
+          : base;
         if (!p) return;
 
         const isVitrine = p.id === 'vitrine';
         document.getElementById('vitrineInputs').hidden = !isVitrine;
         document.getElementById('vitrineReadout').hidden = !isVitrine;
         document.getElementById('hoursField').hidden = isVitrine;
-        document.getElementById('copField').hidden = isVitrine;
         if (p.id !== lastUnit) {
           // The vitrine runs year-round; heating units default to a season
           document.getElementById('days').value = isVitrine ? 365 : 180;
@@ -1486,7 +1497,6 @@
         const days = Math.max(0, val('days'));
         const rate = val('rate');
         const satsPerThDay = val('hashprice');
-        const cop = Math.max(1, val('cop'));
         const btc = Math.max(1, val('btcprice'));
 
         const totalW = p.w * qty;
@@ -1502,18 +1512,13 @@
 
         const net = elecCost - satsValue;
 
-        // Same delivered heat from a heat pump needs COP times less electricity
-        const hpKWh = kWh / cop;
-        const hpCost = hpKWh * rate;
-
         document.getElementById('outHeat').textContent = compact(btuPerHr);
         document.getElementById('outSats').textContent = compact(sats);
         document.getElementById('outNet').textContent = money(net);
 
         const rows = [
           { name: p.name + (qty > 1 ? ' ×' + qty : ''), kWh: kWh, cost: elecCost, credit: satsValue, net: net },
-          { name: 'Electric resistance', kWh: kWh, cost: elecCost, credit: 0, net: elecCost },
-          { name: 'Heat pump @ COP ' + cop.toFixed(1), kWh: hpKWh, cost: hpCost, credit: 0, net: hpCost }
+          { name: 'Electric resistance', kWh: kWh, cost: elecCost, credit: 0, net: elecCost }
         ];
 
         const best = Math.min.apply(null, rows.map(r => r.net));
@@ -1528,11 +1533,9 @@
           '</tr>'
         ).join('');
 
-        const gap = net - hpCost;
-        document.getElementById('verdict').textContent = gap <= 0
-          ? 'At these assumptions the mining credit more than closes the gap to a heat pump — worth a real study, and worth re-running at a lower hashprice before you commit.'
-          : 'At these assumptions a heat pump still delivers this heat for ' + money(Math.abs(gap)) +
-            ' less per season. That gap is the number to beat: either the load is one a heat pump cannot serve, or the case rests on displacing gas or resistance heat instead.';
+        document.getElementById('verdict').textContent =
+          'Against an ordinary electric heater making the same heat, the mining credit saves about ' + money(satsValue) +
+          ' over this period at these assumptions.';
       }
 
       ids.forEach(id => {
