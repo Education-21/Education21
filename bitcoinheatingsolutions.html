@@ -1269,7 +1269,7 @@
     /* ---------- helpers ---------- */
     const BTU_PER_W = 3.412;
     const LOG_MIN = 2;   // 100 W
-    const LOG_MAX = 7;   // 10 MW
+    const LOG_MAX = 7;   // 100 kW
 
     const pos = w => ((Math.log10(w) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * 100;
 
@@ -1288,7 +1288,7 @@
     /* ---------- thermal scale ---------- */
     (function buildScale() {
       const ticks = document.getElementById('scaleTicks');
-      [100, 1000, 10000, 100000, 1000000, 10000000].forEach(w => {
+      [100, 1000, 10000, 100000].forEach(w => {
         const s = document.createElement('span');
         s.textContent = watts(w);
         s.style.left = pos(w) + '%';
