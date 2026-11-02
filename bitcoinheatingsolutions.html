@@ -927,7 +927,7 @@
                     <div class="feature feature-next">
                         <div class="feature-card" id="fixtureCard"></div>
                         <div class="feature-model">
-                            <iframe src="models/solar-fixture-3d.html" title="Interactive 3D model of a solar streetlight and crosswalk beacon with a surplus-power miner" loading="lazy"></iframe>
+                            <iframe src="models/solar-fixture-3d.html" title="Interactive 3D model of a solar streetlight, crosswalk beacon, and traffic light with a surplus-power miner" loading="lazy"></iframe>
                             <p class="fineprint feature-note">These products are still in testing.</p>
                         </div>
                     </div>
@@ -1208,7 +1208,7 @@
       /* ---- Industrial and district ---- */
       {
         id: 'solar-fixture',
-        name: 'Solar Streetlight and Crosswalk',
+        name: 'Solar Streetlight, Crosswalk, and Traffic Light',
         vendor: 'Education21',
         own: true,
         category: 'district',
@@ -1218,22 +1218,29 @@
         w: 60, miningW: 60, th: 4.1, medium: 'air', defaultHours: 4,
         desc: 'A solar streetlight with a small mining board that draws only what the battery can\u2019t store. The light and battery always come first; around midday, once the battery is full, the board takes the surplus instead of letting the panel sit idle. In cold climates its waste heat can keep the battery warm enough to charge.',
         specs: [['Panel', '~200 W'], ['Light', '40 W LED, dusk to dawn'], ['Battery', '~1.2 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~60 W'],
-                ['Mining window', '~4 h/day (Los Angeles average)'], ['Surplus mined', '~0.25 kWh/day; little or none in winter'], ['Est. unit cost', {usd: 2400, after: 'per fixture, pole and installation extra, or shared hashrate'}]],
-        // The 3D model's Streetlight / Crosswalk switch swaps these values into the card
+                ['Mining window', '~4 h/day (Los Angeles average)'], ['Surplus mined', '~0.25 kWh/day; little or none in winter'],
+                ['Retrofit adds', 'Mining board, enclosure, load controller'], ['Est. retrofit cost', {usd: 1700, after: 'per light, installed, or shared hashrate'}]],
+        // The 3D model's Streetlight / Crosswalk / Traffic light switch swaps these values into the card
         variants: {
           streetlight: {
             label: 'Solar Streetlight',
-            w: 60, miningW: 60, th: 4.1, defaultHours: 4,
-            desc: 'A solar streetlight with a small mining board that draws only what the battery can\u2019t store. The light and battery always come first; around midday, once the battery is full, the board takes the surplus instead of letting the panel sit idle. In cold climates its waste heat can keep the battery warm enough to charge.',
-            specs: [['Panel', '~200 W'], ['Light', '40 W LED, dusk to dawn'], ['Battery', '~1.2 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~60 W'],
-                    ['Mining window', '~4 h/day (Los Angeles average)'], ['Surplus mined', '~0.25 kWh/day; little or none in winter'], ['Est. unit cost', {usd: 2400, after: 'per fixture, pole and installation extra, or shared hashrate'}]]
+            w: 60, miningW: 60, th: 4.1, defaultHours: 4
           },
           crosswalk: {
             label: 'Solar Crosswalk Beacon',
             w: 70, miningW: 70, th: 4.8, defaultHours: 7,
             desc: 'Solar rapid flashing beacons at a crosswalk use only a few watts, so a slightly larger panel leaves most of the day\u2019s output spare. Once the battery is full, a small mining board runs on that surplus. The beacons never wait on it.',
             specs: [['Panel', '~150 W'], ['Beacons', '~3 W average'], ['Battery', '~0.6 kWh, charged first'], ['Miner', '4\u00d7 BM1370 board, ~70 W'],
-                    ['Mining window', '~7 h/day (Los Angeles average)'], ['Surplus mined', '~0.3\u20130.5 kWh/day'], ['Est. unit cost', {usd: 5500, after: 'per beacon pair, posts and installation extra, or shared hashrate'}]]
+                    ['Mining window', '~7 h/day (Los Angeles average)'], ['Surplus mined', '~0.3\u20130.5 kWh/day'],
+                    ['Retrofit adds', 'Mining board, enclosure, load controller, 150 W panel'], ['Est. retrofit cost', {usd: 1900, after: 'per crossing, installed, or shared hashrate'}]]
+          },
+          traffic: {
+            label: 'Solar-Assisted Traffic Light',
+            w: 70, miningW: 70, th: 4.8, defaultHours: 7,
+            desc: 'A grid-powered traffic signal with a solar add-on on the mast pole. By day the panel carries part of the signal\u2019s load and keeps its backup battery full; the leftover runs a small mining board in the controller cabinet, whose heat can stand in for the cabinet\u2019s thermostatic heater in cold climates. The signal never depends on the sun or the miner.',
+            specs: [['Signal', 'Grid-powered LED heads, ~60 W'], ['Solar add-on', '~300 W'], ['Backup battery', '~1.2 kWh, kept full'], ['Miner', '4\u00d7 BM1370 board, ~70 W'],
+                    ['Mining window', '~7 h/day (Los Angeles average), ~4 h in winter'], ['Surplus mined', '~0.45 kWh/day'],
+                    ['Retrofit adds', 'Mining board, load controller, 300 W panel, 1.2 kWh battery'], ['Est. retrofit cost', {usd: 2400, after: 'per signal, installed, or shared hashrate'}]]
           }
         }
       },
