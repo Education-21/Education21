@@ -698,6 +698,34 @@
             border-radius: 6px;
             background: var(--dark);
         }
+        .partner-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            align-content: start;
+            min-width: 0;
+        }
+        .partner-gallery figure { margin: 0; }
+        .partner-gallery .wide { grid-column: 1 / -1; }
+        .partner-gallery img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 6px;
+            background: var(--dark);
+        }
+        .partner-gallery .wide img { aspect-ratio: 16 / 9; }
+        .partner-gallery figcaption { color: var(--gray); font-size: 0.8rem; line-height: 1.5; margin-top: 0.4rem; }
+        .partner-gallery .no-img img { display: none; }
+        .partner-gallery .no-img figcaption {
+            display: flex; align-items: center; justify-content: center;
+            aspect-ratio: 4 / 3; margin: 0;
+            border: 1px dashed var(--line); border-radius: 6px;
+        }
+        .partner-gallery .wide.no-img figcaption { aspect-ratio: 16 / 9; }
+        .partner-gallery .feature-note { grid-column: 1 / -1; }
+        .card-link + .card-link { margin-top: 0.4rem; }
         .partner-media figcaption { display: none; }
         .partner-media.no-img img { display: none; }
         .partner-media.no-img figcaption {
@@ -898,17 +926,12 @@
                 <div class="cat-head">
                     <div>
                         <p class="eyebrow eyebrow-lg">Partners&rsquo; products</p>
-                        <h2>Manufacturing</h2>
+                        <h2 class="subcat-title">3D printing</h2>
                     </div>
                 </div>
                 <p class="lede">From print farms to university research labs to construction sites, 3D printing is transforming the way that we make and manufacture. Our partners build the tools that allow everyone, from institutions to individuals, to rebate or offset electricity-for-heating costs at small or large scale.</p>
 
-                <div class="subcat" id="printing">
-                    <div class="cat-head">
-                        <div>
-                            <h3 class="subcat-title">3D printing</h3>
-                        </div>
-                    </div>
+                <div class="subcat" id="printing" style="margin-top:2.5rem">
                     <div class="cards">
                         <article class="card partner-card">
                             <div class="card-thermal" style="width:12%;background:var(--t1)"></div>
@@ -945,6 +968,52 @@
                             </dl>
                             <a class="card-link" href="https://www.proof-of-print.com/" target="_blank" rel="noopener">proof-of-print.com &rarr;</a>
                         </article>
+                    </div>
+                </div>
+                <div class="subcat" id="home-heating">
+                    <div class="cat-head">
+                        <div>
+                            <h3 class="subcat-title">Home heating</h3>
+                        </div>
+                    </div>
+                    <p class="lede">Single-room miners built by our partners: they plug into an ordinary outlet, run quietly enough to share a room with, and heat the space while they mine.</p>
+                    <div class="feature">
+                        <div class="feature-card">
+                            <article class="card partner-card">
+                                <div class="card-thermal" style="width:15%;background:var(--t1)"></div>
+                                <p class="card-vendor">M&Oslash;NTAN1 &times; SatStackingPleb &middot; partner product</p>
+                                <h3>SLIM19 Home Miner</h3>
+                                <p class="card-desc">A recycled Antminer S19 chassis rebuilt around a single hashboard, two quiet 120&nbsp;mm case fans, and a power supply that runs on a standard wall outlet. It is tuned for quiet, steady room heat rather than maximum hashrate, so it can live in the room with you and turn part of the heating bill into sats. Units are built and tested before they ship, and the printed parts are open source for anyone who wants to build their own.</p>
+                                <dl class="specs">
+                                    <div class="spec"><dt>Circuit</dt><dd>Standard 120 V outlet</dd></div>
+                                    <div class="spec"><dt>Power supply</dt><dd>APW3++, ~12.35 V DC to the board</dd></div>
+                                    <div class="spec"><dt>Hashboard</dt><dd>One S19-family board</dd></div>
+                                    <div class="spec"><dt>Cooling</dt><dd>2 &times; 120 mm quiet case fans</dd></div>
+                                    <div class="spec"><dt>Noise</dt><dd>About a desktop PC under load</dd></div>
+                                    <div class="spec"><dt>Firmware</dt><dd>LuxOS, autotuned</dd></div>
+                                    <div class="spec"><dt>Chassis</dt><dd>Recycled S19 extrusion</dd></div>
+                                    <div class="spec"><dt>SLIM19 JPRO+</dt><dd><span class="price" data-usd="440">~$440 USD</span> + shipping</dd></div>
+                                    <div class="spec"><dt>SLIM19 KPRO</dt><dd><span class="price" data-usd="500">~$500 USD</span> + shipping</dd></div>
+                                </dl>
+                                <a class="card-link" href="https://m0ntan1.com/bitcoin/slim19/" target="_blank" rel="noopener">m0ntan1.com/bitcoin/slim19 &rarr;</a>
+                                <a class="card-link" href="https://github.com/SatStackingPleb/Slim19" target="_blank" rel="noopener">Free print files on GitHub &rarr;</a>
+                            </article>
+                        </div>
+                        <div class="partner-gallery">
+                            <figure class="wide">
+                                <img src="https://m0ntan1.com/slim19/assets/hero-three-rigs.jpg" alt="Three finished SLIM19 miners standing side by side" loading="lazy" onerror="this.parentNode.classList.add('no-img')">
+                                <figcaption>Finished SLIM19 units: printed intake, two case fans, recycled S19 chassis.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://m0ntan1.com/slim19/assets/fans-gelid.jpg" alt="120 mm case fan mounted on the printed SLIM19 intake frame" loading="lazy" onerror="this.parentNode.classList.add('no-img')">
+                                <figcaption>Quiet 120 mm fans replace the stock S19 fans.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://m0ntan1.com/slim19/assets/kit-flatlay.jpg" alt="SLIM19 printed kit laid out with cables and hardware" loading="lazy" onerror="this.parentNode.classList.add('no-img')">
+                                <figcaption>The open-source printed kit with its cables and hardware.</figcaption>
+                            </figure>
+                            <p class="fineprint feature-note">Photos: M&Oslash;NTAN1.</p>
+                        </div>
                     </div>
                 </div>
             </div>
